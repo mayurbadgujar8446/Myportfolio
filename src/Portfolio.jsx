@@ -266,7 +266,7 @@ function useInView(ref, threshold = 0.15) {
     );
     if (ref.current) obs.observe(ref.current);
     return () => obs.disconnect();
-  }, []);
+  }, [ref, threshold]);
   return visible;
 }
 
@@ -287,7 +287,7 @@ function useTypewriter(words, speed = 120, pause = 1800) {
       }
     }, deleting ? speed / 2 : speed);
     return () => clearTimeout(timeout);
-  }, [display, deleting, idx]);
+  }, [display, deleting, idx, words, speed, pause]);
   return display;
 }
 
@@ -324,7 +324,13 @@ function Nav({ active }) {
         {links.map(l => (
           <a key={l} href={`#${l.toLowerCase()}`} className="nav-link">{l}</a>
         ))}
-        <a href={DATA.links.resume} target="_blank" className="btn-outline" style={{ padding:"8px 18px", fontSize:13 }}>
+       <a
+  href={DATA.links.resume}
+  target="_blank"
+  rel="noopener noreferrer"
+  className="btn-outline"
+  style={{ padding:"8px 18px", fontSize:13 }}
+>
           Resume ↗
         </a>
       </div>
