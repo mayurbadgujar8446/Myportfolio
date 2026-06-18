@@ -675,11 +675,33 @@ function Contact() {
 
   // EDIT: Replace this with your actual form submission logic
   // e.g. Formspree: fetch("https://formspree.io/f/YOUR_ID", { method:"POST", ... })
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setSent(true);
-    // TODO: Add your form handler here
-  };
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+  try {
+    const response = await fetch("https://formspree.io/f/maqzzgge", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: form.name,
+        email: form.email,
+        message: form.message,
+      }),
+    });
+    if (response.ok) {
+      setSent(true);
+      setForm({ name: "", email: "", message: "" });
+      // Optional: clear success message after 3 seconds
+      setTimeout(() => setSent(false), 3000);
+    } else {
+      alert("Error sending message. Please try again.");
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    alert("Error sending message. Please check your internet connection.");
+  }
+};
 
   return (
     <section id="contact" ref={ref} style={{ padding:"100px 5vw" }}>
