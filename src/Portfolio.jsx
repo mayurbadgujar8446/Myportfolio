@@ -64,7 +64,7 @@ In addition to my AI and data science background, I am proficient in full-stack 
       description: "A web-based task management application enabling users to create, organize, update, and monitor tasks efficiently through a responsive interface.",
       tags: ["Python", "Flask", "SQLite", "Bootstrap", "JavaScript"],
       github: "https://github.com/mayurbadgujar8446/Task-Magament-System",
-      live: "Not Deployed",
+      live: "https://task-magament-system-production.up.railway.app/",
       featured: true,
     },
     {
@@ -72,7 +72,7 @@ In addition to my AI and data science background, I am proficient in full-stack 
       description: "An intelligent scheduling application using Greedy and Dynamic Programming algorithms to optimize task selection, maximize productivity, and manage work schedules.",
       tags: ["Python", "Flask", "Algorithms", "JavaScript"],
       github: "https://github.com/mayurbadgujar8446/TaskScheduler",
-      live: "Not Deployed",
+      live: "https://taskscheduler-production-dee3.up.railway.app/",
       featured: true,
     },
   ],
