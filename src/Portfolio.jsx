@@ -824,19 +824,6 @@ function Contact() {
       </div>
     </section>
   );
-} // changed
-
-        {/* Direct email link */}
-        <p style={{ marginTop:32, color:token.muted, fontSize:14 }}>
-          Or email me directly at{" "}
-          <a href={`mailto:${DATA.links.email}`}
-            style={{ color:token.accent, textDecoration:"none" }}>
-            {DATA.links.email}
-          </a>
-        </p>
-      </div>
-    </section>
-  );
 }
 
 // ── Footer ──
