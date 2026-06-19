@@ -24,7 +24,7 @@ const tokens = {
 // DATA
 const DATA = {
   name: "Mayur Ravindra Badgujar",
-  title: "Data Science",
+  title: "AI & Data Science Student",
   tagline: "I build scalable web applications",
   location: "Post Fagne, Taluka Dhule, District Dhule, Maharashtra – 424301, India",
   email: "mayurbadgujar8446@gmail.com",
@@ -33,9 +33,9 @@ const DATA = {
   resumeUrl: "/resume.pdf",
   
   social: [
-    { name: "GitHub", url: "https://github.com/mayurbadgujar8446", icon: "GH" },
-    { name: "LinkedIn", url: "https://www.linkedin.com/in/mayurrbadgujar?utm_source=share_via&utm_content=profile&utm_medium=member_android", icon: "LI" },
-    { name: "CodeChef", url: "https://www.codechef.com/users/mayur_badgujar", icon: "CC" },
+    { name: "GitHub", url: "https://github.com/mayurbadgujar8446", icon: "GitHub" },
+    { name: "LinkedIn", url: "https://www.linkedin.com/in/mayurrbadgujar?utm_source=share_via&utm_content=profile&utm_medium=member_android", icon: "LinkedIn" },
+    { name: "CodeChef", url: "https://www.codechef.com/users/mayur_badgujar", icon: "CodeChef" },
   ],
 
   typewriterWords: ["Software Developer", "AI Enthusiast", "Data Science Learner", "Problem Solver", "Full-Stack Developer"],
@@ -105,7 +105,7 @@ experience: [
 stats: [
   { label: "Projects Built", value: "4+" },
   { label: "Problems Solved", value: "2000+" },
-  { label: "Year", value: "2nd" },
+  { label: "Year", value: "3rd" },
 ],
 
 testimonials: [],
