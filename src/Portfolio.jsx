@@ -120,7 +120,7 @@ certifications: [],
 export default function Portfolio() {
   const [isDark, setIsDark] = useState(true);
   const [typewriterIndex, setTypewriterIndex] = useState(0);
-  const [visibleSections, setVisibleSections] = useState({});
+  const [, setVisibleSections] = useState({});
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [sent, setSent] = useState(false);
   const [loading, setLoading] = useState(false);
