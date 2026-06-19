@@ -1,809 +1,1437 @@
-// ============================================================
-// PORTFOLIO.JSX — Your main portfolio component
-// This is a single-file React portfolio with animations & 3D effects.
-// Search for "EDIT:" comments to find every place you need to add your info.
-// ============================================================
+import React, { useState, useEffect, useRef } from "react";
 
-import { useState, useEffect, useRef } from "react";
+// Design Tokens
+const tokens = {
+  colors: {
+    bg: "#0a0a0f",
+    surface: "#111118",
+    card: "#16161f",
+    border: "rgba(255,255,255,0.07)",
+    accent: "#6366F1",
+    accentAlt: "#818CF8",
+    text: "#e2e0f0",
+    muted: "#7a7890",
+    success: "#10b981",
+    error: "#ef4444",
+    warning: "#f59e0b",
+  },
+  fonts: {
+    sans: "'Inter', sans-serif",
+    mono: "'Fira Code', monospace",
+  },
+};
 
-// ─── MAYUR'S COMPLETE PORTFOLIO DATA ───
+// DATA
 const DATA = {
-  // ── Hero Section ──
   name: "Mayur Ravindra Badgujar",
   title: "Data Science",
   tagline: "I build scalable web applications",
+  location: "Post Fagne, Taluka Dhule, District Dhule, Maharashtra – 424301, India",
+  email: "mayurbadgujar8446@gmail.com",
+  phone: "+91 9359366578",
   profileImage: "/profile.jpg",
+  resumeUrl: "/resume.pdf",
+  
+  social: [
+    { name: "GitHub", url: "https://github.com/mayurbadgujar8446", icon: "GH" },
+    { name: "LinkedIn", url: "https://www.linkedin.com/in/mayurrbadgujar?utm_source=share_via&utm_content=profile&utm_medium=member_android", icon: "LI" },
+    { name: "CodeChef", url: "https://www.codechef.com/users/mayur_badgujar", icon: "CC" },
+  ],
 
-  // ── About Section ──
-  about: `I am a motivated Artificial Intelligence and Data Science student with a strong passion for technology, problem-solving, and innovation. I have developed solid programming skills in Python and data analysis tools such as NumPy and Pandas, enabling me to work effectively with data-driven applications and AI-related projects.
+  typewriterWords: ["Software Developer", "AI Enthusiast", "Data Science Learner", "Problem Solver", "Full-Stack Developer"],
 
-In addition to my AI and data science background, I am proficient in full-stack web development, with experience building responsive and user-friendly web applications using HTML, CSS, Node.js, Express.js, and MySQL. I also possess a strong foundation in Data Structures and Algorithms, demonstrated by solving over 2,000 coding problems on competitive programming platforms.`,
-
-  // ── Social / Contact Links ──
-  links: {
-    github: "https://github.com/mayurbadgujar8446",
-    linkedin: "https://www.linkedin.com/in/mayurrbadgujar?utm_source=share_via&utm_content=profile&utm_medium=member_android",
-    codechef: "https://www.codechef.com/users/mayur_badgujar",
-    email: "mayurbadgujar8446@gmail.com",
-    phone: "9359366578",
-    resume: "/resume.pdf",
-    location: "Post Fagne, Dhule, Maharashtra – 424301, India",
-  },
-
-  // ── Skills ──
   skills: [
-    { name: "Python",              level: 80, icon: "🐍" },
-    { name: "MySQL",               level: 80, icon: "🗄️" },
-    { name: "Data Science",        level: 70, icon: "📊" },
-    { name: "Operating Systems",   level: 70, icon: "💻" },
-    { name: "Web Development",     level: 60, icon: "🌐" },
-    { name: "Full-Stack Dev",      level: 60, icon: "🚀" },
-    { name: "Computer Networks",   level: 50, icon: "🌍" },
+    { name: "Python", level: 80 },
+    { name: "MySQL", level: 80 },
+    { name: "Data Science", level: 70 },
+    { name: "Operating Systems", level: 70 },
+    { name: "Web Development", level: 60 },
+    { name: "Full-Stack Dev", level: 60 },
+    { name: "Computer Networks", level: 50 },
   ],
 
-  // ── Projects ──
-  projects: [
-    {
-      title: "Smart Canteen Management System",
-      description: "A full-stack canteen management platform with OTP-based authentication, digital wallet functionality, order management, reward points, email bill generation, and an admin dashboard.",
-      tags: ["Python", "Flask", "MySQL", "HTML", "CSS", "JavaScript"],
-      github: "https://github.com/mayurbadgujar8446/SmartCanteenManagementSystem",
-      live: "Not Deployed",
-      featured: true,
-    },
-    {
-      title: "Multilingual Bot Assistant",
-      description: "An AI-powered multilingual chatbot using NLP and semantic search to provide intelligent responses across multiple languages through an interactive chat interface.",
-      tags: ["Python", "Flask", "PyTorch", "NLP", "Sentence Transformers"],
-      github: "https://github.com/mayurbadgujar8446/Multilingual-Bot-Assistant",
-      live: "Not Deployed",
-      featured: true,
-    },
-    {
-      title: "Task Management System",
-      description: "A web-based task management application enabling users to create, organize, update, and monitor tasks efficiently through a responsive interface.",
-      tags: ["Python", "Flask", "SQLite", "Bootstrap", "JavaScript"],
-      github: "https://github.com/mayurbadgujar8446/Task-Magament-System",
-      live: "https://task-magament-system-production.up.railway.app/",
-      featured: true,
-    },
-    {
-      title: "Smart Task Scheduler",
-      description: "An intelligent scheduling application using Greedy and Dynamic Programming algorithms to optimize task selection, maximize productivity, and manage work schedules.",
-      tags: ["Python", "Flask", "Algorithms", "JavaScript"],
-      github: "https://github.com/mayurbadgujar8446/TaskScheduler",
-      live: "https://taskscheduler-production-dee3.up.railway.app/",
-      featured: true,
-    },
-  ],
+projects: [
+  {
+    title: "Smart Canteen Management System",
+    description: "A full-stack canteen management platform with OTP-based authentication, digital wallet functionality, order management, reward points, email bill generation, and an admin dashboard.",
+    github: "https://github.com/mayurbadgujar8446/SmartCanteenManagementSystem",
+    live: "Not Deployed",
+    featured: true,
+  },
+  {
+    title: "Multilingual Bot Assistant",
+    description: "An AI-powered multilingual chatbot using NLP and semantic search to provide intelligent responses across multiple languages through an interactive chat interface.",
+    github: "https://github.com/mayurbadgujar8446/Multilingual-Bot-Assistant",
+    live: "Not Deployed",
+    featured: true,
+  },
+  {
+    title: "Task Management System",
+    description: "A web-based task management application enabling users to create, organize, update, and monitor tasks efficiently through a responsive interface.",
+    github: "https://github.com/mayurbadgujar8446/Task-Magament-System",
+    live: "https://task-magament-system-production.up.railway.app/",
+    featured: true,
+  },
+  {
+    title: "Smart Task Scheduler",
+    description: "An intelligent scheduling application using Greedy and Dynamic Programming algorithms to optimize task selection, maximize productivity, and manage work schedules.",
+    github: "https://github.com/mayurbadgujar8446/TaskScheduler",
+    live: "https://taskscheduler-production-dee3.up.railway.app/",
+    featured: true,
+  }
+],
 
-  // ── Experience / Timeline ──
-  experience: [
-    {
-      role: "AI & Data Science Student",
-      company: "Bachelor's Degree Program",
-      period: "2023 – Present",
-      desc: "Pursuing a degree in Artificial Intelligence & Data Science with focus on machine learning, data analysis, and full-stack development.",
-    },
-    {
-      role: "Full-Stack Developer",
-      company: "Personal Projects",
-      period: "2022 – Present",
-      desc: "Built 4+ production-ready applications combining AI, web development, and database management with Python, Flask, and MySQL.",
-    },
-    {
-      role: "Competitive Programmer",
-      company: "CodeChef",
-      period: "2020 – Present",
-      desc: "Solved 2000+ coding challenges across Data Structures, Algorithms, and problem-solving paradigms.",
-    },
-  ],
+experience: [
+  {
+    title: "AI & Data Science Student",
+    company: "Bachelor's Degree Program",
+    period: "2023 – Present",
+    description: "Pursuing a degree in Artificial Intelligence & Data Science with focus on machine learning, data analysis, and full-stack development.",
+  },
+  {
+    title: "Full-Stack Developer",
+    company: "Personal Projects",
+    period: "2022 – Present",
+    description: "Built 4+ production-ready applications combining AI, web development, and database management with Python, Flask, and MySQL.",
+  },
+  {
+    title: "Competitive Programmer",
+    company: "CodeChef",
+    period: "2020 – Present",
+    description: "Solved 2000+ coding challenges across Data Structures, Algorithms, and problem-solving paradigms.",
+  },
+],
 
-  // ── About Stats ──
   stats: [
-    { num: "4+", label: "Projects Built" },
-    { num: "2000+", label: "Problems Solved" },
-    { num: "2nd Year", label: "AI & DS Student" },
+    { label: "Projects Built", value: "4+" },
+    { label: "Problems Solved", value: "2000+" },
+    { label: "Year", value: "2nd" },
   ],
 
-  // ── Contact Section ──
-  contactHeading: "Let's Connect",
-  contactText: `I am always open to discussing new opportunities, innovative projects, and collaborations in Artificial Intelligence, Data Science, and Full-Stack Development. Whether you have a project idea, a job opportunity, or simply want to connect, feel free to reach out. I'll do my best to respond as soon as possible.`,
+  // NEW: Testimonials
+  testimonials: [
+    {
+      name: "Coming Soon",
+      title: "Your testimonials here",
+      quote: "Add testimonials from mentors, peers, or project collaborators.",
+    },
+  ],
+
+  // NEW: Certifications
+  certifications: [
+    {
+      name: "Update This",
+      issuer: "Add your certifications",
+      date: "Your cert date",
+    },
+  ],
 };
-// ─────────────────────────────────────────────────────────────
 
-// ── Inline Styles (design tokens) ──
-const token = {
-  bg:       "#0a0a0f",
-  surface:  "#111118",
-  card:     "#16161f",
-  border:   "rgba(255,255,255,0.07)",
-  accent:   "#6366F1",       // Indigo - Professional & Modern
-  accentAlt:"#818CF8",       // Lighter Indigo shade
-  text:     "#e2e0f0",
-  muted:    "#7a7890",
-  fontSans: "'Inter', 'Segoe UI', sans-serif",
-  fontMono: "'Fira Code', 'JetBrains Mono', monospace",
-};
+// ============================================================================
+// MAIN PORTFOLIO COMPONENT
+// ============================================================================
 
-// ── Keyframe injection (runs once) ──
-const injectKeyframes = () => {
-  if (document.getElementById("pf-keyframes")) return;
-  const style = document.createElement("style");
-  style.id = "pf-keyframes";
-  style.textContent = `
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+export default function Portfolio() {
+  const [isDark, setIsDark] = useState(true);
+  const [typewriterIndex, setTypewriterIndex] = useState(0);
+  const [visibleSections, setVisibleSections] = useState({});
+  const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [sent, setSent] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [formErrors, setFormErrors] = useState({});
+  const [showScrollTop, setShowScrollTop] = useState(false);
+  const scrollTopRef = useRef(null);
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body { background: ${token.bg}; color: ${token.text}; font-family: ${token.fontSans}; }
+  // ============================================================================
+  // TYPEWRITER EFFECT
+  // ============================================================================
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTypewriterIndex((prev) => (prev + 1) % DATA.typewriterWords.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
 
-    @keyframes fadeUp   { from { opacity:0; transform:translateY(32px); } to { opacity:1; transform:translateY(0); } }
-    @keyframes fadeIn   { from { opacity:0; } to { opacity:1; } }
-    @keyframes float    { 0%,100% { transform:translateY(0px); } 50% { transform:translateY(-12px); } }
-    @keyframes spinSlow { from { transform:rotateY(0deg); } to { transform:rotateY(360deg); } }
-    @keyframes pulse    { 0%,100% { box-shadow: 0 0 0 0 rgba(124,111,255,0.4); } 70% { box-shadow: 0 0 0 12px rgba(124,111,255,0); } }
-    @keyframes shimmer  { from { background-position: -400px 0; } to { background-position: 400px 0; } }
-    @keyframes orbit    { from { transform:rotate(0deg) translateX(90px) rotate(0deg); } to { transform:rotate(360deg) translateX(90px) rotate(-360deg); } }
-    @keyframes blink    { 0%,100% { opacity:1; } 50% { opacity:0; } }
-    @keyframes gradShift { 0%,100% { background-position:0% 50%; } 50% { background-position:100% 50%; } }
+  // ============================================================================
+  // SCROLL VISIBILITY & SCROLL-TO-TOP BUTTON
+  // ============================================================================
+  useEffect(() => {
+    const handleScroll = () => {
+      // Show scroll-to-top button
+      if (window.scrollY > 300) {
+        setShowScrollTop(true);
+      } else {
+        setShowScrollTop(false);
+      }
 
-    .fade-up    { animation: fadeUp 0.7s ease both; }
-    .fade-in    { animation: fadeIn 0.6s ease both; }
+      // Track visible sections for animations
+      const sections = document.querySelectorAll("[data-section]");
+      sections.forEach((section) => {
+        const rect = section.getBoundingClientRect();
+        const isVisible = rect.top < window.innerHeight * 0.75;
+        if (isVisible) {
+          setVisibleSections((prev) => ({
+            ...prev,
+            [section.id]: true,
+          }));
+        }
+      });
+    };
 
-    .nav-link { color: ${token.muted}; text-decoration:none; font-size:14px; transition:color 0.2s; }
-    .nav-link:hover { color: ${token.text}; }
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // ============================================================================
+  // FORM VALIDATION
+  // ============================================================================
+  const validateForm = () => {
+    const errors = {};
+
+    if (!form.name.trim()) {
+      errors.name = "Name is required";
+    }
+
+    if (!form.email.trim()) {
+      errors.email = "Email is required";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
+      errors.email = "Please enter a valid email";
+    }
+
+    if (!form.message.trim()) {
+      errors.message = "Message cannot be empty";
+    } else if (form.message.trim().length < 10) {
+      errors.message = "Message must be at least 10 characters";
+    }
+
+    return errors;
+  };
+
+  // ============================================================================
+  // HANDLE FORM SUBMISSION
+  // ============================================================================
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setFormErrors({});
+
+    // Validate
+    const errors = validateForm();
+    if (Object.keys(errors).length > 0) {
+      setFormErrors(errors);
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      // Using Formspree
+      const response = await fetch("https://formspree.io/f/maqzzgge", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: form.name,
+          email: form.email,
+          message: form.message,
+        }),
+      });
+
+      if (response.ok) {
+        setSent(true);
+        setForm({ name: "", email: "", message: "" });
+
+        // Auto-hide success message after 5 seconds
+        setTimeout(() => setSent(false), 5000);
+      } else {
+        setFormErrors({ submit: "Failed to send message. Try again." });
+      }
+    } catch (err) {
+      setFormErrors({ submit: "Network error. Please try again." });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // ============================================================================
+  // SMOOTH SCROLL TO SECTIONS
+  // ============================================================================
+  const scrollToSection = (sectionId) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  // ============================================================================
+  // CSS STYLES
+  // ============================================================================
+  const styles = `
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: ${tokens.fonts.sans};
+      background: ${tokens.colors.bg};
+      color: ${tokens.colors.text};
+      line-height: 1.6;
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes gradShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+
+    @keyframes cardHover {
+      0% { transform: translateY(0px) rotateX(0deg); }
+      100% { transform: translateY(-10px) rotateX(5deg); }
+    }
+
+    @keyframes skillFill {
+      from { width: 0%; }
+      to { width: var(--skill-level); }
+    }
+
+    @keyframes orbit {
+      0% { transform: rotate(0deg) translateX(100px) rotate(0deg); }
+      100% { transform: rotate(360deg) translateX(100px) rotate(-360deg); }
+    }
+
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes spinLoader {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .fade-up {
+      animation: fadeUp 0.6s ease-out forwards;
+    }
+
+    .visible { opacity: 1; }
+
+    /* LAYOUT */
+    body {
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* NAVBAR */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(10px);
+      background: rgba(10, 10, 15, 0.8);
+      border-bottom: 1px solid ${tokens.colors.border};
+      padding: 1rem 0;
+    }
+
+    nav .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: ${tokens.colors.accent};
+      font-family: ${tokens.fonts.mono};
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    nav a {
+      color: ${tokens.colors.text};
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: color 0.3s;
+      position: relative;
+      cursor: pointer;
+    }
+
+    nav a::after {
+      content: "";
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: ${tokens.colors.accent};
+      transition: width 0.3s;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    .theme-toggle {
+      background: ${tokens.colors.card};
+      border: 1px solid ${tokens.colors.border};
+      color: ${tokens.colors.text};
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s;
+      font-size: 1.2rem;
+    }
+
+    .theme-toggle:hover {
+      background: ${tokens.colors.accent};
+      transform: scale(1.1);
+    }
+
+    /* HERO SECTION */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      animation: fadeUp 0.8s ease-out;
+    }
+
+    .profile-pic {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      margin: 0 auto 2rem;
+      border: 3px solid ${tokens.colors.accent};
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 80px;
+      background: ${tokens.colors.card};
+      overflow: hidden;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .profile-pic img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 4rem);
+      font-weight: 700;
+      margin: 1rem 0;
+      color: ${tokens.colors.text};
+    }
+
+    .typewriter {
+      height: 1.5em;
+      font-size: 1.5rem;
+      color: ${tokens.colors.accent};
+      font-weight: 600;
+      min-width: 250px;
+      display: inline-block;
+    }
+
+    .cursor {
+      animation: blink 1s infinite;
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      color: ${tokens.colors.muted};
+      margin-top: 1rem;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 0.8rem 2rem;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 600;
+      transition: all 0.3s;
+      font-family: ${tokens.fonts.sans};
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      position: relative;
+    }
 
     .btn-primary {
-      background: ${token.accent};
-      color: #fff;
-      border: none;
-      border-radius: 8px;
-      padding: 12px 28px;
-      font-size: 15px;
+      background: ${tokens.colors.accent};
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: ${tokens.colors.accentAlt};
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
+    }
+
+    .btn-secondary {
+      background: ${tokens.colors.card};
+      border: 1px solid ${tokens.colors.border};
+      color: ${tokens.colors.text};
+    }
+
+    .btn-secondary:hover {
+      background: ${tokens.colors.surface};
+      border-color: ${tokens.colors.accent};
+      transform: translateY(-2px);
+    }
+
+    .btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    /* SECTIONS */
+    section {
+      padding: 5rem 0;
+      border-top: 1px solid ${tokens.colors.border};
+    }
+
+    section h2 {
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      font-weight: 700;
+      margin-bottom: 3rem;
+      text-align: center;
+      background: linear-gradient(135deg, ${tokens.colors.accent}, ${tokens.colors.accentAlt});
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* SKILLS SECTION */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+
+    .skill-item {
+      animation: fadeUp 0.6s ease-out forwards;
+      opacity: 0;
+    }
+
+    .skill-item:nth-child(1) { animation-delay: 0.1s; }
+    .skill-item:nth-child(2) { animation-delay: 0.2s; }
+    .skill-item:nth-child(3) { animation-delay: 0.3s; }
+    .skill-item:nth-child(4) { animation-delay: 0.4s; }
+    .skill-item:nth-child(5) { animation-delay: 0.5s; }
+    .skill-item:nth-child(6) { animation-delay: 0.6s; }
+    .skill-item:nth-child(7) { animation-delay: 0.7s; }
+
+    .skill-name {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
       font-weight: 600;
-      cursor: pointer;
-      transition: transform 0.2s, box-shadow 0.2s;
-      text-decoration: none;
-      display: inline-block;
-    }
-    .btn-primary:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(124,111,255,0.35); }
-
-    .btn-outline {
-      background: transparent;
-      color: ${token.accent};
-      border: 1.5px solid ${token.accent};
-      border-radius: 8px;
-      padding: 11px 26px;
-      font-size: 15px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s;
-      text-decoration: none;
-      display: inline-block;
-    }
-    .btn-outline:hover { background: rgba(124,111,255,0.1); transform:translateY(-2px); }
-
-    .card-3d {
-      transition: transform 0.4s ease, box-shadow 0.4s ease;
-      transform-style: preserve-3d;
-    }
-    .card-3d:hover {
-      transform: perspective(800px) rotateY(-4deg) rotateX(3deg) translateY(-6px);
-      box-shadow: 8px 16px 40px rgba(0,0,0,0.5), 0 0 0 1px rgba(124,111,255,0.2);
     }
 
-    .skill-bar-fill {
+    .skill-bar {
+      height: 8px;
+      background: ${tokens.colors.card};
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .skill-fill {
       height: 100%;
-      border-radius: 4px;
-      background: linear-gradient(90deg, ${token.accent}, ${token.accentAlt});
-      transition: width 1.2s cubic-bezier(0.4,0,0.2,1);
+      background: linear-gradient(90deg, ${tokens.colors.accent}, ${tokens.colors.accentAlt});
+      border-radius: 10px;
+      --skill-level: var(--level);
+      animation: skillFill 1s ease-out forwards;
     }
 
-    .tag {
-      background: rgba(124,111,255,0.12);
-      color: ${token.accentAlt};
-      border: 1px solid rgba(124,111,255,0.2);
-      border-radius: 20px;
-      padding: 3px 12px;
-      font-size: 12px;
-      font-family: ${token.fontMono};
+    /* PROJECTS SECTION */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
     }
 
-    .section-label {
-      font-size: 12px;
-      font-family: ${token.fontMono};
-      color: ${token.accent};
-      letter-spacing: 2px;
-      text-transform: uppercase;
+    .project-card {
+      background: ${tokens.colors.card};
+      border: 1px solid ${tokens.colors.border};
+      border-radius: 12px;
+      padding: 1.5rem;
+      transition: all 0.3s;
+      animation: fadeUp 0.6s ease-out forwards;
+      opacity: 0;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
     }
 
-    .timeline-dot {
-      width:14px; height:14px;
-      border-radius:50%;
-      background: ${token.accent};
-      border: 3px solid ${token.bg};
-      animation: pulse 2s infinite;
-      flex-shrink:0;
-    }
+    .project-card:nth-child(1) { animation-delay: 0.1s; }
+    .project-card:nth-child(2) { animation-delay: 0.2s; }
+    .project-card:nth-child(3) { animation-delay: 0.3s; }
+    .project-card:nth-child(4) { animation-delay: 0.4s; }
 
-    .input-field {
-      background: ${token.card};
-      border: 1.5px solid ${token.border};
-      border-radius: 8px;
-      color: ${token.text};
-      padding: 12px 16px;
-      font-size: 15px;
-      font-family: ${token.fontSans};
-      width: 100%;
-      outline: none;
-      transition: border-color 0.2s;
-    }
-    .input-field:focus { border-color: ${token.accent}; }
-
-    .floating-shape {
+    .project-card::before {
+      content: "";
       position: absolute;
-      border-radius: 50%;
-      filter: blur(80px);
-      opacity: 0.12;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
       pointer-events: none;
     }
 
-    ::-webkit-scrollbar { width:6px; }
-    ::-webkit-scrollbar-track { background: ${token.bg}; }
-    ::-webkit-scrollbar-thumb { background: ${token.accent}; border-radius:3px; }
-  `;
-  document.head.appendChild(style);
-};
-
-// ── Intersection Observer hook for scroll-triggered animations ──
-function useInView(ref, threshold = 0.15) {
-  const [visible, setVisible] = useState(false);
-  useEffect(() => {
-    const obs = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) { setVisible(true); obs.disconnect(); } },
-      { threshold }
-    );
-    if (ref.current) obs.observe(ref.current);
-    return () => obs.disconnect();
-  }, [ref, threshold]);
-  return visible;
-}
-
-// ── Typewriter effect hook ──
-function useTypewriter(words, speed = 120, pause = 1800) {
-  const [display, setDisplay] = useState("");
-  const [idx, setIdx] = useState(0);
-  const [deleting, setDeleting] = useState(false);
-  useEffect(() => {
-    const word = words[idx % words.length];
-    const timeout = setTimeout(() => {
-      if (!deleting) {
-        setDisplay(word.slice(0, display.length + 1));
-        if (display.length + 1 === word.length) setTimeout(() => setDeleting(true), pause);
-      } else {
-        setDisplay(word.slice(0, display.length - 1));
-        if (display.length - 1 === 0) { setDeleting(false); setIdx(i => i + 1); }
-      }
-    }, deleting ? speed / 2 : speed);
-    return () => clearTimeout(timeout);
-  }, [display, deleting, idx, words, speed, pause]);
-  return display;
-}
-
-// ══════════════════════════════════════════════
-//  SECTION COMPONENTS
-// ══════════════════════════════════════════════
-
-// ── Nav ──
-function Nav({ active }) {
-  const [scrolled, setScrolled] = useState(false);
-  useEffect(() => {
-    const fn = () => setScrolled(window.scrollY > 40);
-    window.addEventListener("scroll", fn);
-    return () => window.removeEventListener("scroll", fn);
-  }, []);
-
-  const links = ["About", "Skills", "Projects", "Experience", "Contact"];
-  return (
-    <nav style={{
-      position:"fixed", top:0, left:0, right:0, zIndex:100,
-      background: scrolled ? `rgba(10,10,15,0.85)` : "transparent",
-      backdropFilter: scrolled ? "blur(16px)" : "none",
-      borderBottom: scrolled ? `1px solid ${token.border}` : "none",
-      transition: "all 0.3s",
-      padding:"0 5vw",
-      display:"flex", alignItems:"center", justifyContent:"space-between",
-      height:64,
-    }}>
-      {/* Mayur's Logo */}
-      <span style={{ fontWeight:700, fontSize:20, color:token.accent, fontFamily:token.fontMono }}>
-        {"<MRB />"}
-      </span>
-      <div style={{ display:"flex", gap:32, alignItems:"center" }}>
-        {links.map(l => (
-          <a key={l} href={`#${l.toLowerCase()}`} className="nav-link">{l}</a>
-        ))}
-       <a
-  href={DATA.links.resume}
-  target="_blank"
-  rel="noopener noreferrer"
-  className="btn-outline"
-  style={{ padding:"8px 18px", fontSize:13 }}
->
-          Resume ↗
-        </a>
-      </div>
-    </nav>
-  );
-}
-
-// ── 3D Floating Orb (hero decoration) ──
-function Orb({ size, color, top, left, delay = 0 }) {
-  return (
-    <div className="floating-shape" style={{
-      width:size, height:size, background:color,
-      top, left,
-      animation:`float ${4 + delay}s ease-in-out infinite`,
-      animationDelay:`${delay}s`,
-    }} />
-  );
-}
-
-// ── Hero Section ──
-function Hero() {
-  // EDIT: Add/remove/change the rotating words below
-  const rotatingWords = ["Software Developer", "AI Enthusiast", "Data Science Learner", "Problem Solver", "Full-Stack Developer"];
-  const typed = useTypewriter(rotatingWords);
-
-  return (
-    <section id="hero" style={{
-      minHeight:"100vh", display:"flex", alignItems:"center", justifyContent:"center",
-      position:"relative", overflow:"hidden", padding:"0 5vw",
-    }}>
-      {/* Ambient background orbs */}
-      <Orb size={500} color={token.accent}  top="-10%"  left="-5%"   delay={0} />
-      <Orb size={350} color="#a78bfa"        top="50%"   left="70%"   delay={1.5} />
-      <Orb size={200} color="#6ee7b7"        top="80%"   left="10%"   delay={3} />
-
-      {/* Grid overlay */}
-      <div style={{
-        position:"absolute", inset:0,
-        backgroundImage:`
-          linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px)`,
-        backgroundSize:"60px 60px",
-        zIndex:0,
-      }} />
-
-      <div style={{ position:"relative", zIndex:1, maxWidth:750, textAlign:"center" }}>
-        {/* Greeting */}
-        <p className="section-label fade-up" style={{ marginBottom:16 }}>
-          Hello, world. I'm
-        </p>
-
-        {/* Name — BIG */}
-        <h1 className="fade-up" style={{
-          fontSize:"clamp(42px, 8vw, 90px)",
-          fontWeight:700,
-          lineHeight:1.05,
-          marginBottom:16,
-          background:`linear-gradient(135deg, ${token.text} 30%, ${token.accent} 100%)`,
-          WebkitBackgroundClip:"text",
-          WebkitTextFillColor:"transparent",
-          backgroundSize:"200%",
-          animation:"gradShift 6s ease infinite",
-          animationDelay:"0.5s",
-        }}>
-          {DATA.name}
-        </h1>
-
-        {/* Typewriter */}
-        <h2 style={{
-          fontSize:"clamp(20px, 3vw, 32px)", fontWeight:400, color:token.muted,
-          marginBottom:24, minHeight:40,
-        }}>
-          <span style={{ color:token.accent, fontFamily:token.fontMono }}>{">"}</span>{" "}
-          {typed}
-          <span style={{ animation:"blink 1s step-end infinite", color:token.accent }}>|</span>
-        </h2>
-
-        <p style={{ fontSize:17, color:token.muted, maxWidth:520, margin:"0 auto 40px", lineHeight:1.7 }}>
-          {DATA.tagline}
-        </p>
-
-        {/* CTA buttons */}
-        <div style={{ display:"flex", gap:16, justifyContent:"center", flexWrap:"wrap" }}>
-          <a href="#projects" className="btn-primary">View My Work</a>
-          <a href="#contact"  className="btn-outline">Let's Talk</a>
-        </div>
-
-        {/* Social links */}
-        <div style={{ marginTop:48, display:"flex", gap:24, justifyContent:"center" }}>
-          {[
-            { label:"GitHub",   href:DATA.links.github      },
-            { label:"LinkedIn", href:DATA.links.linkedin    },
-            { label:"CodeChef", href:DATA.links.codechef    },
-            { label:"Email",    href:`mailto:${DATA.links.email}` },
-          ].map(s => (
-            <a key={s.label} href={s.href} target="_blank" rel="noreferrer"
-              style={{ color:token.muted, fontSize:13, textDecoration:"none", transition:"color 0.2s" }}
-              onMouseEnter={e => e.target.style.color = token.accent}
-              onMouseLeave={e => e.target.style.color = token.muted}>
-              {s.label}
-            </a>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-// ── About Section ──
-function About() {
-  const ref = useRef(); const visible = useInView(ref);
-  return (
-    <section id="about" ref={ref} style={{ padding:"100px 5vw", maxWidth:1100, margin:"0 auto" }}>
-      <div style={{
-        display:"grid", gridTemplateColumns:"1fr 1fr", gap:64, alignItems:"center",
-        opacity: visible ? 1 : 0, transform: visible ? "none" : "translateY(40px)",
-        transition:"all 0.8s cubic-bezier(0.4,0,0.2,1)",
-      }}>
-        {/* Left: text */}
-        <div>
-          <p className="section-label" style={{ marginBottom:12 }}>01. About Me</p>
-          <h2 style={{ fontSize:"clamp(28px,4vw,42px)", fontWeight:700, marginBottom:24 }}>
-            Who I Am
-          </h2>
-          <p style={{ color:token.muted, lineHeight:1.85, fontSize:16, marginBottom:20 }}>
-            {DATA.about}
-          </p>
-          {/* EDIT: Add more fun facts or highlights here */}
-          <div style={{ display:"flex", gap:32, marginTop:32 }}>
-            {[
-              { num:"4+", label:"Projects Built" },
-              { num:"2000+", label:"Problems Solved" },
-              { num:"2nd Year", label:"AI & DS Student" },
-            ].map(s => (
-              <div key={s.label}>
-                <p style={{ fontSize:32, fontWeight:700, color:token.accent }}>{s.num}</p>
-                <p style={{ fontSize:13, color:token.muted }}>{s.label}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Right: profile photo with 3D tilt card */}
-        <div style={{ display:"flex", justifyContent:"center" }}>
-          <div className="card-3d" style={{
-            width:280, height:280, borderRadius:20,
-            background:`linear-gradient(135deg, ${token.accent}33, ${token.card})`,
-            border:`1px solid ${token.border}`,
-            display:"flex", alignItems:"center", justifyContent:"center",
-            overflow:"hidden", position:"relative",
-          }}>
-            {/* EDIT: Replace the emoji below with an <img> tag once you have your photo:
-                <img src={DATA.profileImage} alt="Profile" style={{width:"100%",height:"100%",objectFit:"cover"}} />
-            */}
-            <span style={{ fontSize:80 }}>👤</span>
-
-            {/* decorative corner accent */}
-            <div style={{
-              position:"absolute", bottom:-2, right:-2,
-              width:80, height:80,
-              background:`linear-gradient(135deg, transparent 40%, ${token.accent}66 100%)`,
-              borderRadius:"0 0 20px 0",
-            }} />
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-// ── Skills Section ──
-function Skills() {
-  const ref = useRef(); const visible = useInView(ref);
-  return (
-    <section id="skills" ref={ref} style={{
-      padding:"100px 5vw", background:token.surface,
-    }}>
-      <div style={{ maxWidth:1100, margin:"0 auto" }}>
-        <p className="section-label" style={{ marginBottom:12 }}>02. Skills</p>
-        <h2 style={{ fontSize:"clamp(28px,4vw,42px)", fontWeight:700, marginBottom:56 }}>
-          What I Work With
-        </h2>
-        <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fit,minmax(280px,1fr))", gap:24 }}>
-          {DATA.skills.map((sk, i) => (
-            <div key={sk.name} className="card-3d" style={{
-              background:token.card, border:`1px solid ${token.border}`,
-              borderRadius:16, padding:"24px 28px",
-              opacity: visible ? 1 : 0, transform: visible ? "none" : "translateY(30px)",
-              transition:`all 0.6s ease ${i * 0.08}s`,
-            }}>
-              <div style={{ display:"flex", justifyContent:"space-between", marginBottom:12, alignItems:"center" }}>
-                <div style={{ display:"flex", alignItems:"center", gap:10 }}>
-                  <span style={{ fontSize:22 }}>{sk.icon}</span>
-                  <span style={{ fontWeight:600, fontSize:15 }}>{sk.name}</span>
-                </div>
-                <span style={{ fontFamily:token.fontMono, fontSize:13, color:token.accent }}>{sk.level}%</span>
-              </div>
-              {/* Skill progress bar */}
-              <div style={{ background:"rgba(255,255,255,0.06)", borderRadius:4, height:6, overflow:"hidden" }}>
-                <div className="skill-bar-fill" style={{ width: visible ? `${sk.level}%` : "0%" }} />
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-// ── Projects Section ──
-function Projects() {
-  const ref = useRef(); const visible = useInView(ref);
-  return (
-    <section id="projects" ref={ref} style={{ padding:"100px 5vw" }}>
-      <div style={{ maxWidth:1100, margin:"0 auto" }}>
-        <p className="section-label" style={{ marginBottom:12 }}>03. Projects</p>
-        <h2 style={{ fontSize:"clamp(28px,4vw,42px)", fontWeight:700, marginBottom:56 }}>
-          Things I've Built
-        </h2>
-        <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fit,minmax(320px,1fr))", gap:28 }}>
-          {DATA.projects.map((p, i) => (
-            <div key={p.title} className="card-3d" style={{
-              background:token.card,
-              border:`1px solid ${p.featured ? token.accent + "55" : token.border}`,
-              borderRadius:20, padding:"28px 28px 24px",
-              position:"relative", overflow:"hidden",
-              opacity: visible ? 1 : 0, transform: visible ? "none" : "translateY(40px)",
-              transition:`all 0.7s ease ${i * 0.12}s`,
-            }}>
-              {/* Featured badge */}
-              {p.featured && (
-                <span style={{
-                  position:"absolute", top:16, right:16,
-                  background:`${token.accent}22`, color:token.accent,
-                  border:`1px solid ${token.accent}44`,
-                  borderRadius:20, padding:"2px 10px", fontSize:11, fontFamily:token.fontMono,
-                }}>★ Featured</span>
-              )}
-
-              {/* Top icon bar */}
-              <div style={{ fontSize:28, marginBottom:20 }}>
-                {/* EDIT: Add an icon or project screenshot here */}
-                📁
-              </div>
-
-              <h3 style={{ fontSize:20, fontWeight:700, marginBottom:10 }}>{p.title}</h3>
-              <p style={{ color:token.muted, fontSize:14, lineHeight:1.7, marginBottom:20 }}>{p.description}</p>
-
-              {/* Tech tags */}
-              <div style={{ display:"flex", flexWrap:"wrap", gap:8, marginBottom:24 }}>
-                {p.tags.map(t => <span key={t} className="tag">{t}</span>)}
-              </div>
-
-              {/* Links */}
-              <div style={{ display:"flex", gap:20 }}>
-                <a href={p.github} target="_blank" rel="noreferrer" style={{
-                  color:token.muted, fontSize:13, textDecoration:"none",
-                  display:"flex", alignItems:"center", gap:6,
-                  transition:"color 0.2s",
-                }}
-                  onMouseEnter={e => e.target.style.color = token.text}
-                  onMouseLeave={e => e.target.style.color = token.muted}>
-                  GitHub ↗
-                </a>
-                <a href={p.live} target="_blank" rel="noreferrer" style={{
-                  color:token.accent, fontSize:13, textDecoration:"none",
-                  display:"flex", alignItems:"center", gap:6,
-                }}>
-                  Live Demo ↗
-                </a>
-              </div>
-
-              {/* Decorative accent line */}
-              <div style={{
-                position:"absolute", bottom:0, left:0, right:0, height:2,
-                background: p.featured
-                  ? `linear-gradient(90deg, ${token.accent}, ${token.accentAlt})`
-                  : "transparent",
-              }} />
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-// ── Experience / Timeline Section ──
-function Experience() {
-  const ref = useRef(); const visible = useInView(ref);
-  return (
-    <section id="experience" ref={ref} style={{ padding:"100px 5vw", background:token.surface }}>
-      <div style={{ maxWidth:800, margin:"0 auto" }}>
-        <p className="section-label" style={{ marginBottom:12 }}>04. Experience</p>
-        <h2 style={{ fontSize:"clamp(28px,4vw,42px)", fontWeight:700, marginBottom:56 }}>
-          Where I've Worked
-        </h2>
-        {/* Timeline */}
-        <div style={{ position:"relative" }}>
-          {/* Vertical line */}
-          <div style={{
-            position:"absolute", left:6, top:0, bottom:0, width:2,
-            background:`linear-gradient(180deg, ${token.accent}, transparent)`,
-          }} />
-
-          {DATA.experience.map((exp, i) => (
-            <div key={exp.role} style={{
-              display:"flex", gap:28, marginBottom:48,
-              paddingLeft:6,
-              opacity: visible ? 1 : 0, transform: visible ? "none" : "translateX(-30px)",
-              transition:`all 0.6s ease ${i * 0.15}s`,
-            }}>
-              <div style={{ paddingTop:4 }}>
-                <div className="timeline-dot" />
-              </div>
-              <div style={{
-                background:token.card, border:`1px solid ${token.border}`,
-                borderRadius:16, padding:"20px 24px", flex:1,
-              }}>
-                <div style={{ display:"flex", justifyContent:"space-between", flexWrap:"wrap", gap:8, marginBottom:6 }}>
-                  <div>
-                    <h3 style={{ fontWeight:700, fontSize:17 }}>{exp.role}</h3>
-                    <span style={{ color:token.accent, fontSize:14 }}>{exp.company}</span>
-                  </div>
-                  <span style={{ color:token.muted, fontSize:13, fontFamily:token.fontMono }}>{exp.period}</span>
-                </div>
-                <p style={{ color:token.muted, fontSize:14, lineHeight:1.7, marginTop:8 }}>{exp.desc}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-// ── Contact Section ──
-function Contact() {
-  const ref = useRef(); const visible = useInView(ref);
-  const [form, setForm] = useState({ name:"", email:"", message:"" });
-  const [sent, setSent] = useState(false);
-
-  // EDIT: Replace this with your actual form submission logic
-  // e.g. Formspree: fetch("https://formspree.io/f/YOUR_ID", { method:"POST", ... })
-  const handleSubmit = async (e) => {
-  e.preventDefault();
-  try {
-    const response = await fetch("https://formspree.io/f/maqzzgge", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name: form.name,
-        email: form.email,
-        message: form.message,
-      }),
-    });
-    if (response.ok) {
-      setSent(true);
-      setForm({ name: "", email: "", message: "" });
-      // Optional: clear success message after 3 seconds
-      setTimeout(() => setSent(false), 3000);
-    } else {
-      alert("Error sending message. Please try again.");
+    .project-card:hover {
+      border-color: ${tokens.colors.accent};
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(99, 102, 241, 0.2);
     }
-  } catch (error) {
-    console.error("Error:", error);
-    alert("Error sending message. Please check your internet connection.");
-  }
-};
 
+    .project-card:hover::before {
+      opacity: 1;
+    }
+
+    .project-card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+      color: ${tokens.colors.text};
+    }
+
+    .project-card p {
+      color: ${tokens.colors.muted};
+      font-size: 0.95rem;
+      margin-bottom: 1rem;
+    }
+
+    .project-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .project-links a {
+      padding: 0.5rem 1rem;
+      border: 1px solid ${tokens.colors.border};
+      border-radius: 6px;
+      color: ${tokens.colors.accent};
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: all 0.3s;
+    }
+
+    .project-links a:hover {
+      background: ${tokens.colors.accent};
+      color: white;
+    }
+
+    /* EXPERIENCE SECTION */
+    .timeline {
+      position: relative;
+      padding-left: 2rem;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(180deg, ${tokens.colors.accent}, transparent);
+    }
+
+    .timeline-item {
+      margin-bottom: 2rem;
+      padding-bottom: 2rem;
+      animation: fadeUp 0.6s ease-out forwards;
+      opacity: 0;
+    }
+
+    .timeline-item:nth-child(1) { animation-delay: 0.1s; }
+    .timeline-item:nth-child(2) { animation-delay: 0.2s; }
+    .timeline-item:nth-child(3) { animation-delay: 0.3s; }
+
+    .timeline-item::before {
+      content: "";
+      position: absolute;
+      left: -11px;
+      top: 0;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: ${tokens.colors.accent};
+      border: 3px solid ${tokens.colors.bg};
+      animation: pulse 2s infinite;
+    }
+
+    .timeline-item h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .timeline-item .company {
+      color: ${tokens.colors.accent};
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    .timeline-item .period {
+      color: ${tokens.colors.muted};
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .timeline-item p {
+      color: ${tokens.colors.muted};
+    }
+
+    /* TESTIMONIALS SECTION */
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .testimonial-card {
+      background: ${tokens.colors.card};
+      border: 1px solid ${tokens.colors.border};
+      border-radius: 12px;
+      padding: 2rem;
+      animation: fadeUp 0.6s ease-out forwards;
+      opacity: 0;
+      position: relative;
+    }
+
+    .testimonial-card:nth-child(1) { animation-delay: 0.1s; }
+    .testimonial-card:nth-child(2) { animation-delay: 0.2s; }
+    .testimonial-card:nth-child(3) { animation-delay: 0.3s; }
+
+    .testimonial-card::before {
+      content: '"';
+      position: absolute;
+      top: 10px;
+      left: 15px;
+      font-size: 4rem;
+      color: ${tokens.colors.accent};
+      opacity: 0.2;
+    }
+
+    .testimonial-quote {
+      color: ${tokens.colors.text};
+      font-size: 1rem;
+      margin-bottom: 1.5rem;
+      font-style: italic;
+      line-height: 1.8;
+    }
+
+    .testimonial-author {
+      color: ${tokens.colors.accent};
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+    }
+
+    .testimonial-title {
+      color: ${tokens.colors.muted};
+      font-size: 0.9rem;
+    }
+
+    /* CERTIFICATIONS SECTION */
+    .certifications-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    .cert-card {
+      background: ${tokens.colors.card};
+      border: 1px solid ${tokens.colors.border};
+      border-radius: 12px;
+      padding: 1.5rem;
+      animation: fadeUp 0.6s ease-out forwards;
+      opacity: 0;
+      transition: all 0.3s;
+    }
+
+    .cert-card:nth-child(1) { animation-delay: 0.1s; }
+    .cert-card:nth-child(2) { animation-delay: 0.2s; }
+    .cert-card:nth-child(3) { animation-delay: 0.3s; }
+
+    .cert-card:hover {
+      border-color: ${tokens.colors.accent};
+      transform: translateY(-5px);
+    }
+
+    .cert-name {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: ${tokens.colors.accent};
+      margin-bottom: 0.5rem;
+    }
+
+    .cert-issuer {
+      color: ${tokens.colors.text};
+      margin-bottom: 0.3rem;
+    }
+
+    .cert-date {
+      color: ${tokens.colors.muted};
+      font-size: 0.9rem;
+    }
+
+    /* CONTACT SECTION */
+    .contact-form {
+      max-width: 600px;
+      margin: 0 auto;
+      background: ${tokens.colors.card};
+      border: 1px solid ${tokens.colors.border};
+      border-radius: 12px;
+      padding: 2rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+      animation: fadeUp 0.6s ease-out forwards;
+      opacity: 0;
+    }
+
+    .form-group:nth-child(1) { animation-delay: 0.1s; }
+    .form-group:nth-child(2) { animation-delay: 0.2s; }
+    .form-group:nth-child(3) { animation-delay: 0.3s; }
+    .form-group:nth-child(4) { animation-delay: 0.4s; }
+
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: ${tokens.colors.text};
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      padding: 0.75rem;
+      background: ${tokens.colors.surface};
+      border: 1px solid ${tokens.colors.border};
+      border-radius: 8px;
+      color: ${tokens.colors.text};
+      font-family: ${tokens.fonts.sans};
+      font-size: 1rem;
+      transition: all 0.3s;
+      resize: vertical;
+    }
+
+    input:focus,
+    textarea:focus {
+      outline: none;
+      border-color: ${tokens.colors.accent};
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+    }
+
+    .error {
+      border-color: ${tokens.colors.error} !important;
+    }
+
+    .error-message {
+      color: ${tokens.colors.error};
+      font-size: 0.85rem;
+      margin-top: 0.3rem;
+    }
+
+    .success-message {
+      background: ${tokens.colors.success};
+      color: white;
+      padding: 1rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      animation: slideDown 0.3s ease-out;
+    }
+
+    .form-error {
+      background: ${tokens.colors.error};
+      color: white;
+      padding: 1rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      animation: slideDown 0.3s ease-out;
+    }
+
+    .loading-spinner {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: white;
+      animation: spinLoader 0.6s linear infinite;
+    }
+
+    /* STATS SECTION */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 2rem;
+      text-align: center;
+    }
+
+    .stat {
+      animation: fadeUp 0.6s ease-out forwards;
+      opacity: 0;
+    }
+
+    .stat:nth-child(1) { animation-delay: 0.1s; }
+    .stat:nth-child(2) { animation-delay: 0.2s; }
+    .stat:nth-child(3) { animation-delay: 0.3s; }
+
+    .stat-value {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: ${tokens.colors.accent};
+    }
+
+    .stat-label {
+      color: ${tokens.colors.muted};
+      font-size: 0.95rem;
+    }
+
+    /* FOOTER */
+    footer {
+      background: ${tokens.colors.surface};
+      border-top: 1px solid ${tokens.colors.border};
+      padding: 2rem;
+      text-align: center;
+      color: ${tokens.colors.muted};
+    }
+
+    footer a {
+      color: ${tokens.colors.accent};
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    footer a:hover {
+      color: ${tokens.colors.accentAlt};
+    }
+
+    /* SCROLL TO TOP BUTTON */
+    .scroll-top-btn {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 50px;
+      height: 50px;
+      background: ${tokens.colors.accent};
+      color: white;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      transition: all 0.3s;
+      z-index: 40;
+      animation: slideDown 0.3s ease-out;
+    }
+
+    .scroll-top-btn:hover {
+      background: ${tokens.colors.accentAlt};
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
+    }
+
+    .scroll-top-btn:active {
+      transform: translateY(0);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      nav ul {
+        gap: 1rem;
+        font-size: 0.9rem;
+      }
+
+      .hero {
+        padding: 2rem 1rem;
+      }
+
+      .cta-buttons {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+        justify-content: center;
+      }
+
+      section {
+        padding: 3rem 0;
+      }
+
+      .scroll-top-btn {
+        bottom: 1.5rem;
+        right: 1.5rem;
+        width: 45px;
+        height: 45px;
+      }
+
+      input, textarea {
+        font-size: 16px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero h1 {
+        font-size: 1.8rem;
+      }
+
+      .typewriter {
+        font-size: 1.2rem;
+        min-width: 150px;
+      }
+
+      nav a {
+        font-size: 0.85rem;
+      }
+
+      .skills-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .projects-grid,
+      .testimonials-grid,
+      .certifications-grid {
+        grid-template-columns: 1fr;
+      }
+
+      section h2 {
+        font-size: 1.5rem;
+      }
+    }
+  `;
+
+  // ============================================================================
+  // RENDER
+  // ============================================================================
   return (
-    <section id="contact" ref={ref} style={{ padding:"100px 5vw" }}>
-      <div style={{
-        maxWidth:620, margin:"0 auto", textAlign:"center",
-        opacity: visible ? 1 : 0, transform: visible ? "none" : "translateY(40px)",
-        transition:"all 0.8s ease",
-      }}>
-        <p className="section-label" style={{ marginBottom:12 }}>05. Contact</p>
-        <h2 style={{ fontSize:"clamp(28px,4vw,48px)", fontWeight:700, marginBottom:20 }}>
-          {DATA.contactHeading}
-        </h2>
-        <p style={{ color:token.muted, fontSize:16, lineHeight:1.8, marginBottom:48 }}>
-          {DATA.contactText}
-        </p>
+    <div style={{ background: tokens.colors.bg, color: tokens.colors.text, minHeight: "100vh" }}>
+      <style>{styles}</style>
 
-        {sent ? (
-          <div style={{
-            background:`${token.accent}15`, border:`1px solid ${token.accent}44`,
-            borderRadius:16, padding:32, color:token.accent, fontSize:18, fontWeight:600,
-          }}>
-            ✓ Message sent! I'll get back to you soon.
+      {/* NAVBAR */}
+      <nav role="navigation" aria-label="Main navigation">
+        <div className="container">
+          <div className="logo" role="img" aria-label="MRB Logo">
+            &lt;MRB /&gt;
           </div>
-        ) : (
-          <div style={{
-            background:token.card, border:`1px solid ${token.border}`,
-            borderRadius:20, padding:"40px 36px", textAlign:"left",
-          }}>
-            {[
-              { key:"name",    label:"Name",    type:"text",     placeholder:"Your Name" },
-              { key:"email",   label:"Email",   type:"email",    placeholder:"your.email@example.com" },
-            ].map(f => (
-              <div key={f.key} style={{ marginBottom:20 }}>
-                <label style={{ display:"block", color:token.muted, fontSize:13, marginBottom:6 }}>{f.label}</label>
-                <input
-                  type={f.type}
-                  placeholder={f.placeholder}
-                  className="input-field"
-                  value={form[f.key]}
-                  onChange={e => setForm({ ...form, [f.key]: e.target.value })}
-                />
+          <ul>
+            <li>
+              <a href="#skills" onClick={(e) => { e.preventDefault(); scrollToSection("skills"); }} role="button" tabIndex={0}>
+                Skills
+              </a>
+            </li>
+            <li>
+              <a href="#projects" onClick={(e) => { e.preventDefault(); scrollToSection("projects"); }} role="button" tabIndex={0}>
+                Projects
+              </a>
+            </li>
+            <li>
+              <a href="#experience" onClick={(e) => { e.preventDefault(); scrollToSection("experience"); }} role="button" tabIndex={0}>
+                Experience
+              </a>
+            </li>
+            <li>
+              <a href="#contact" onClick={(e) => { e.preventDefault(); scrollToSection("contact"); }} role="button" tabIndex={0}>
+                Contact
+              </a>
+            </li>
+            <li>
+              <button
+                className="theme-toggle"
+                onClick={() => setIsDark(!isDark)}
+                aria-label="Toggle dark mode"
+                title="Toggle theme"
+              >
+                {isDark ? "☀️" : "🌙"}
+              </button>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      {/* HERO SECTION */}
+      <section className="hero" data-section>
+        <div className="hero-content">
+          <div className="profile-pic" role="img" aria-label="Profile picture">
+            <span>👤</span>
+          </div>
+          <h1>{DATA.name}</h1>
+          <div className="typewriter">
+            {DATA.typewriterWords[typewriterIndex]}
+            <span className="cursor">|</span>
+          </div>
+          <p aria-label="Tagline">{DATA.tagline}</p>
+          <div className="cta-buttons">
+            <button
+              className="btn btn-primary"
+              onClick={() => scrollToSection("contact")}
+              aria-label="Scroll to contact form"
+            >
+              Let's Talk 💬
+            </button>
+            <a
+              href={DATA.resumeUrl}
+              download="resume.pdf"
+              className="btn btn-secondary"
+              aria-label="Download resume"
+            >
+              Download Resume 📄
+            </a>
+          </div>
+          <div style={{ marginTop: "2rem", display: "flex", gap: "1rem", justifyContent: "center" }}>
+            {DATA.social.map((link) => (
+              <a
+                key={link.name}
+                href={link.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`Visit ${link.name}`}
+                style={{
+                  width: "40px",
+                  height: "40px",
+                  border: `1px solid ${tokens.colors.border}`,
+                  borderRadius: "50%",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  textDecoration: "none",
+                  color: tokens.colors.accent,
+                  transition: "all 0.3s",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = tokens.colors.accent;
+                  e.currentTarget.style.color = "white";
+                  e.currentTarget.style.transform = "translateY(-5px)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = "transparent";
+                  e.currentTarget.style.color = tokens.colors.accent;
+                  e.currentTarget.style.transform = "translateY(0)";
+                }}
+              >
+                {link.icon}
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* STATS */}
+      <section style={{ padding: "3rem 0", borderTop: `1px solid ${tokens.colors.border}` }}>
+        <div className="container">
+          <div className="stats-grid">
+            {DATA.stats.map((stat, idx) => (
+              <div key={idx} className="stat">
+                <div className="stat-value">{stat.value}</div>
+                <div className="stat-label">{stat.label}</div>
               </div>
             ))}
-            <div style={{ marginBottom:28 }}>
-              <label style={{ display:"block", color:token.muted, fontSize:13, marginBottom:6 }}>Message</label>
-              <textarea
-                rows={5}
-                placeholder="Let me know about your project or opportunity..."
-                className="input-field"
-                style={{ resize:"vertical" }}
-                value={form.message}
-                onChange={e => setForm({ ...form, message: e.target.value })}
-              />
-            </div>
-            <button className="btn-primary" onClick={handleSubmit} style={{ width:"100%", fontSize:16 }}>
-              Send Message →
-            </button>
           </div>
-        )}
+        </div>
+      </section>
 
-        {/* Direct email link */}
-        <p style={{ marginTop:32, color:token.muted, fontSize:14 }}>
-          Or email me directly at{" "}
-          <a href={`mailto:${DATA.links.email}`}
-            style={{ color:token.accent, textDecoration:"none" }}>
-            {DATA.links.email}
-          </a>
-        </p>
-      </div>
-    </section>
-  );
-}
+      {/* SKILLS SECTION */}
+      <section id="skills" data-section>
+        <div className="container">
+          <h2>Skills</h2>
+          <div className="skills-grid">
+            {DATA.skills.map((skill, idx) => (
+              <div key={idx} className="skill-item">
+                <div className="skill-name">
+                  <span>{skill.name}</span>
+                  <span>{skill.level}%</span>
+                </div>
+                <div className="skill-bar">
+                  <div
+                    className="skill-fill"
+                    style={{ "--level": `${skill.level}%` } as React.CSSProperties}
+                    role="progressbar"
+                    aria-valuenow={skill.level}
+                    aria-valuemin={0}
+                    aria-valuemax={100}
+                    aria-label={`${skill.name} skill level ${skill.level}%`}
+                  ></div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-// ── Footer ──
-function Footer() {
-  return (
-    <footer style={{
-      padding:"32px 5vw", borderTop:`1px solid ${token.border}`,
-      textAlign:"center", color:token.muted, fontSize:13,
-    }}>
-      {/* EDIT: Replace name and year */}
-      <p>Designed &amp; Built by <span style={{ color:token.accent }}>Mayur Ravindra Badgujar</span> · {new Date().getFullYear()}</p>
-    </footer>
-  );
-}
+      {/* PROJECTS SECTION */}
+      <section id="projects" data-section>
+        <div className="container">
+          <h2>Featured Projects</h2>
+          <div className="projects-grid">
+            {DATA.projects.map((project, idx) => (
+              <div key={idx} className="project-card">
+                <h3>{project.title}</h3>
+                <p>{project.description}</p>
+                <div className="project-links">
+                  <a href={project.github} target="_blank" rel="noopener noreferrer" aria-label={`View ${project.title} on GitHub`}>
+                    GitHub
+                  </a>
+                  <a href={project.live} className={project.live === "Not Deployed" ? "disabled" : ""} target={project.live !== "Not Deployed" ? "_blank" : undefined} rel={project.live !== "Not Deployed" ? "noopener noreferrer" : undefined} aria-label={`View ${project.title} live demo`} style={project.live === "Not Deployed" ? { opacity: 0.5, pointerEvents: "none" } : {}}>
+                    Live Demo
+                  </a>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-// ══════════════════════════════════════════════
-//  ROOT APP
-// ══════════════════════════════════════════════
-export default function Portfolio() {
-  useEffect(() => { injectKeyframes(); }, []);
+      {/* EXPERIENCE SECTION */}
+      <section id="experience" data-section>
+        <div className="container">
+          <h2>Experience</h2>
+          <div className="timeline">
+            {DATA.experience.map((exp, idx) => (
+              <div key={idx} className="timeline-item">
+                <h3>{exp.title}</h3>
+                <div className="company">{exp.company}</div>
+                <div className="period">{exp.period}</div>
+                <p>{exp.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-  return (
-    <div style={{ background:token.bg, color:token.text, fontFamily:token.fontSans }}>
-      <Nav />
-      <Hero />
-      <About />
-      <Skills />
-      <Projects />
-      <Experience />
-      <Contact />
-      <Footer />
+      {/* TESTIMONIALS SECTION */}
+      <section id="testimonials" data-section style={{ display: DATA.testimonials.length > 0 ? "block" : "none" }}>
+        <div className="container">
+          <h2>Testimonials</h2>
+          <div className="testimonials-grid">
+            {DATA.testimonials.map((testimonial, idx) => (
+              <div key={idx} className="testimonial-card">
+                <p className="testimonial-quote">{testimonial.quote}</p>
+                <div className="testimonial-author">{testimonial.name}</div>
+                <div className="testimonial-title">{testimonial.title}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CERTIFICATIONS SECTION */}
+      <section id="certifications" data-section style={{ display: DATA.certifications.length > 0 ? "block" : "none" }}>
+        <div className="container">
+          <h2>Certifications</h2>
+          <div className="certifications-grid">
+            {DATA.certifications.map((cert, idx) => (
+              <div key={idx} className="cert-card">
+                <div className="cert-name">{cert.name}</div>
+                <div className="cert-issuer">{cert.issuer}</div>
+                <div className="cert-date">{cert.date}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CONTACT SECTION */}
+      <section id="contact" data-section>
+        <div className="container">
+          <h2>Get In Touch</h2>
+          <div className="contact-form">
+            {sent && (
+              <div className="success-message" role="status" aria-live="polite">
+                ✅ Message sent successfully! I'll get back to you soon.
+              </div>
+            )}
+            {formErrors.submit && (
+              <div className="form-error" role="alert" aria-live="polite">
+                ❌ {formErrors.submit}
+              </div>
+            )}
+            <form onSubmit={handleSubmit} noValidate>
+              <div className="form-group">
+                <label htmlFor="name">Name</label>
+                <input
+                  id="name"
+                  type="text"
+                  placeholder="Your name"
+                  value={form.name}
+                  onChange={(e) => {
+                    setForm({ ...form, name: e.target.value });
+                    if (formErrors.name) setFormErrors({ ...formErrors, name: "" });
+                  }}
+                  className={formErrors.name ? "error" : ""}
+                  aria-invalid={!!formErrors.name}
+                  aria-describedby={formErrors.name ? "name-error" : undefined}
+                />
+                {formErrors.name && (
+                  <div id="name-error" className="error-message">
+                    {formErrors.name}
+                  </div>
+                )}
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="email">Email</label>
+                <input
+                  id="email"
+                  type="email"
+                  placeholder="your@email.com"
+                  value={form.email}
+                  onChange={(e) => {
+                    setForm({ ...form, email: e.target.value });
+                    if (formErrors.email) setFormErrors({ ...formErrors, email: "" });
+                  }}
+                  className={formErrors.email ? "error" : ""}
+                  aria-invalid={!!formErrors.email}
+                  aria-describedby={formErrors.email ? "email-error" : undefined}
+                />
+                {formErrors.email && (
+                  <div id="email-error" className="error-message">
+                    {formErrors.email}
+                  </div>
+                )}
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="message">Message</label>
+                <textarea
+                  id="message"
+                  placeholder="Your message (min 10 characters)"
+                  rows={5}
+                  value={form.message}
+                  onChange={(e) => {
+                    setForm({ ...form, message: e.target.value });
+                    if (formErrors.message) setFormErrors({ ...formErrors, message: "" });
+                  }}
+                  className={formErrors.message ? "error" : ""}
+                  aria-invalid={!!formErrors.message}
+                  aria-describedby={formErrors.message ? "message-error" : undefined}
+                ></textarea>
+                {formErrors.message && (
+                  <div id="message-error" className="error-message">
+                    {formErrors.message}
+                  </div>
+                )}
+              </div>
+
+              <button
+                type="submit"
+                className="btn btn-primary"
+                disabled={loading}
+                style={{ width: "100%" }}
+                aria-busy={loading}
+              >
+                {loading ? (
+                  <>
+                    <span className="loading-spinner"></span> Sending...
+                  </>
+                ) : (
+                  "Send Message 🚀"
+                )}
+              </button>
+            </form>
+          </div>
+        </div>
+      </section>
+
+{/* FOOTER */}
+<footer>
+  <div className="container">
+    <p>
+      © {new Date().getFullYear()} {DATA.name} | Built with React & ❤️ |
+      <a href={`mailto:${DATA.email}`} style={{ marginLeft: "0.5rem" }}>
+        {DATA.email}
+      </a>
+    </p>
+  </div>
+</footer>
+
+      {/* SCROLL TO TOP BUTTON */}
+      {showScrollTop && (
+        <button
+          ref={scrollTopRef}
+          className="scroll-top-btn"
+          onClick={scrollToTop}
+          aria-label="Scroll to top"
+          title="Back to top"
+        >
+          ↑
+        </button>
+      )}
     </div>
   );
 }
