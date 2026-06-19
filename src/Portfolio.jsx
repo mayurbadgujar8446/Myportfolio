@@ -1204,15 +1204,15 @@ export default function Portfolio() {
                   <span>{skill.level}%</span>
                 </div>
                 <div className="skill-bar">
-                  <div
-                    className="skill-fill"
-                    style={{ "--level": `${skill.level}%` } as React.CSSProperties}
-                    role="progressbar"
-                    aria-valuenow={skill.level}
-                    aria-valuemin={0}
-                    aria-valuemax={100}
-                    aria-label={`${skill.name} skill level ${skill.level}%`}
-                  ></div>
+              <div
+                  className="skill-fill"
+                  style={{ width: `${skill.level}%` }}
+                  role="progressbar"
+                  aria-valuenow={skill.level}
+                  aria-valuemin={0}
+                  aria-valuemax={100}
+                  aria-label={`${skill.name} skill level ${skill.level}%`}
+                 ></div>
                 </div>
               </div>
             ))}
