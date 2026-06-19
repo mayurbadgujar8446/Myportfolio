@@ -1,9 +1,4 @@
-// ============================================================
-// PORTFOLIO.JSX — Your main portfolio component
-// This is a single-file React portfolio with animations & 3D effects.
-// Search for "EDIT:" comments to find every place you need to add your info.
-// ============================================================
-
+// correct 
 import { useState, useEffect, useRef } from "react";
 
 // ─── MAYUR'S COMPLETE PORTFOLIO DATA ───
@@ -32,13 +27,13 @@ In addition to my AI and data science background, I am proficient in full-stack 
 
   // ── Skills ──
   skills: [
-    { name: "Python",              level: 80, icon: "🐍" },
-    { name: "MySQL",               level: 80, icon: "🗄️" },
-    { name: "Data Science",        level: 70, icon: "📊" },
-    { name: "Operating Systems",   level: 70, icon: "💻" },
-    { name: "Web Development",     level: 60, icon: "🌐" },
-    { name: "Full-Stack Dev",      level: 60, icon: "🚀" },
-    { name: "Computer Networks",   level: 50, icon: "🌍" },
+    { name: "Python",                    level: 80, icon: "🐍" },
+    { name: "MySQL",                     level: 80, icon: "🗄️" },
+    { name: "Data Science",              level: 70, icon: "📊" },
+    { name: "Operating Systems Basic",   level: 70, icon: "💻" },
+    { name: "Web Development",           level: 60, icon: "🌐" },
+    { name: "Full-Stack Dev",            level: 60, icon: "🚀" },
+    { name: "Computer Networks Basic",   level: 50, icon: "🌍" },
   ],
 
   // ── Projects ──
@@ -82,19 +77,19 @@ In addition to my AI and data science background, I am proficient in full-stack 
     {
       role: "AI & Data Science Student",
       company: "Bachelor's Degree Program",
-      period: "2023 – Present",
+      period: "2024 – Present",
       desc: "Pursuing a degree in Artificial Intelligence & Data Science with focus on machine learning, data analysis, and full-stack development.",
     },
     {
       role: "Full-Stack Developer",
       company: "Personal Projects",
-      period: "2022 – Present",
+      period: "2025 – Present",
       desc: "Built 4+ production-ready applications combining AI, web development, and database management with Python, Flask, and MySQL.",
     },
     {
       role: "Competitive Programmer",
       company: "CodeChef",
-      period: "2020 – Present",
+      period: "2024 – Present",
       desc: "Solved 2000+ coding challenges across Data Structures, Algorithms, and problem-solving paradigms.",
     },
   ],
@@ -103,7 +98,7 @@ In addition to my AI and data science background, I am proficient in full-stack 
   stats: [
     { num: "4+", label: "Projects Built" },
     { num: "2000+", label: "Problems Solved" },
-    { num: "2nd Year", label: "AI & DS Student" },
+    { num: "3rd Year", label: "Artificial Intelligence & Data Science Student" },
   ],
 
   // ── Contact Section ──
@@ -463,7 +458,7 @@ function About() {
             {[
               { num:"4+", label:"Projects Built" },
               { num:"2000+", label:"Problems Solved" },
-              { num:"2nd Year", label:"AI & DS Student" },
+              { num:"3rd Year", label:"Artificial Intelligence & Data Science Student" },
             ].map(s => (
               <div key={s.label}>
                 <p style={{ fontSize:32, fontWeight:700, color:token.accent }}>{s.num}</p>
@@ -599,7 +594,7 @@ function Projects() {
                   color:token.accent, fontSize:13, textDecoration:"none",
                   display:"flex", alignItems:"center", gap:6,
                 }}>
-                  Live Demo ↗
+                  Live  ↗
                 </a>
               </div>
 
