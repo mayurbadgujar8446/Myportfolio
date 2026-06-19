@@ -26,6 +26,8 @@ const DATA = {
   name: "Mayur Ravindra Badgujar",
   title: "AI & Data Science Student",
   tagline: "I build scalable web applications",
+  about:
+  "I am Mayur Badgujar, a second-year AI & Data Science student at R. C. Patel Institute of Technology.I enjoy building full-stack web applications, exploring artificial intelligence, and solving programming problems. My focus is on creating practical software solutions while continuously improving my skills in development, data science, and problem-solving.",
   location: "Post Fagne, Taluka Dhule, District Dhule, Maharashtra – 424301, India",
   email: "mayurbadgujar8446@gmail.com",
   phone: "+91 9359366578",
@@ -1177,7 +1179,24 @@ export default function Portfolio() {
           </div>
         </div>
       </section>
-
+{/* ABOUT SECTION */}
+<section id="about" data-section>
+  <div className="container">
+    <h2>About Me</h2>
+    <div
+      style={{
+        maxWidth: "900px",
+        margin: "0 auto",
+        textAlign: "center",
+        color: tokens.colors.muted,
+        fontSize: "1.1rem",
+        lineHeight: "1.8",
+      }}
+    >
+      <p>{DATA.about}</p>
+    </div>
+  </div>
+</section>
       {/* STATS */}
       <section style={{ padding: "3rem 0", borderTop: `1px solid ${tokens.colors.border}` }}>
         <div className="container">
