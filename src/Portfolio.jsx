@@ -664,39 +664,69 @@ function Experience() {
 
 // ── Contact Section ──
 function Contact() {
-  const ref = useRef(); const visible = useInView(ref);
+  const ref = useRef(); 
+  const visible = useInView(ref);
   const [form, setForm] = useState({ name:"", email:"", message:"" });
   const [sent, setSent] = useState(false);
+  const [formErrors, setFormErrors] = useState({});
 
-  // EDIT: Replace this with your actual form submission logic
-  // e.g. Formspree: fetch("https://formspree.io/f/YOUR_ID", { method:"POST", ... })
-  const handleSubmit = async (e) => {
-  e.preventDefault();
-  try {
-    const response = await fetch("https://formspree.io/f/maqzzgge", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name: form.name,
-        email: form.email,
-        message: form.message,
-      }),
-    });
-    if (response.ok) {
-      setSent(true);
-      setForm({ name: "", email: "", message: "" });
-      // Optional: clear success message after 3 seconds
-      setTimeout(() => setSent(false), 3000);
-    } else {
-      alert("Error sending message. Please try again.");
+  // VALIDATION FUNCTION
+  const validateForm = () => {
+    const errors = {};
+
+    if (!form.name.trim()) {
+      errors.name = "Name is required";
     }
-  } catch (error) {
-    console.error("Error:", error);
-    alert("Error sending message. Please check your internet connection.");
-  }
-};
+
+    if (!form.email.trim()) {
+      errors.email = "Email is required";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
+      errors.email = "Please enter a valid email";
+    }
+
+    if (!form.message.trim()) {
+      errors.message = "Message is required";
+    }
+
+    return errors;
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    // VALIDATE FIRST
+    const errors = validateForm();
+    if (Object.keys(errors).length > 0) {
+      setFormErrors(errors);
+      return;
+    }
+
+    setFormErrors({});
+
+    try {
+      const response = await fetch("https://formspree.io/f/maqzzgge", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: form.name,
+          email: form.email,
+          message: form.message,
+        }),
+      });
+      if (response.ok) {
+        setSent(true);
+        setForm({ name: "", email: "", message: "" });
+        setTimeout(() => setSent(false), 3000);
+      } else {
+        alert("Error sending message. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Error sending message. Please check your internet connection.");
+    }
+  };
 
   return (
     <section id="contact" ref={ref} style={{ padding:"100px 5vw" }}>
@@ -736,8 +766,21 @@ function Contact() {
                   placeholder={f.placeholder}
                   className="input-field"
                   value={form[f.key]}
-                  onChange={e => setForm({ ...form, [f.key]: e.target.value })}
+                  onChange={e => {
+                    setForm({ ...form, [f.key]: e.target.value });
+                    if (formErrors[f.key]) {
+                      setFormErrors({ ...formErrors, [f.key]: "" });
+                    }
+                  }}
+                  style={{
+                    borderColor: formErrors[f.key] ? "#ef4444" : undefined,
+                  }}
                 />
+                {formErrors[f.key] && (
+                  <p style={{ color: "#ef4444", fontSize: 12, marginTop: 4 }}>
+                    {formErrors[f.key]}
+                  </p>
+                )}
               </div>
             ))}
             <div style={{ marginBottom:28 }}>
@@ -746,16 +789,42 @@ function Contact() {
                 rows={5}
                 placeholder="Let me know about your project or opportunity..."
                 className="input-field"
-                style={{ resize:"vertical" }}
+                style={{ 
+                  resize:"vertical",
+                  borderColor: formErrors.message ? "#ef4444" : undefined,
+                }}
                 value={form.message}
-                onChange={e => setForm({ ...form, message: e.target.value })}
+                onChange={e => {
+                  setForm({ ...form, message: e.target.value });
+                  if (formErrors.message) {
+                    setFormErrors({ ...formErrors, message: "" });
+                  }
+                }}
               />
+              {formErrors.message && (
+                <p style={{ color: "#ef4444", fontSize: 12, marginTop: 4 }}>
+                  {formErrors.message}
+                </p>
+              )}
             </div>
             <button className="btn-primary" onClick={handleSubmit} style={{ width:"100%", fontSize:16 }}>
               Send Message →
             </button>
           </div>
         )}
+
+        {/* Direct email link */}
+        <p style={{ marginTop:32, color:token.muted, fontSize:14 }}>
+          Or email me directly at{" "}
+          <a href={`mailto:${DATA.links.email}`}
+            style={{ color:token.accent, textDecoration:"none" }}>
+            {DATA.links.email}
+          </a>
+        </p>
+      </div>
+    </section>
+  );
+} // changed
 
         {/* Direct email link */}
         <p style={{ marginTop:32, color:token.muted, fontSize:14 }}>
