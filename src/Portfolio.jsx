@@ -102,18 +102,15 @@ experience: [
   },
 ],
 
-  stats: [
-    { label: "Projects Built", value: "4+" },
-    { label: "Problems Solved", value: "2000+" },
-    { label: "Year", value: "2nd" },
-  ],
+stats: [
+  { label: "Projects Built", value: "4+" },
+  { label: "Problems Solved", value: "2000+" },
+  { label: "Year", value: "2nd" },
+],
 
-  // NEW: Testimonials
-  testimonials: [
-  ],
+testimonials: [],
 
-  // NEW: Certifications
-  certifications: [
+certifications: [],
 };
 
 // ============================================================================
