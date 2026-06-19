@@ -110,21 +110,10 @@ experience: [
 
   // NEW: Testimonials
   testimonials: [
-    {
-      name: "Coming Soon",
-      title: "Your testimonials here",
-      quote: "Add testimonials from mentors, peers, or project collaborators.",
-    },
   ],
 
   // NEW: Certifications
   certifications: [
-    {
-      name: "Update This",
-      issuer: "Add your certifications",
-      date: "Your cert date",
-    },
-  ],
 };
 
 // ============================================================================
