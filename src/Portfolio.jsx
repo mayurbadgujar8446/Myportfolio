@@ -142,6 +142,7 @@ const injectKeyframes = () => {
     @keyframes orbit    { from { transform:rotate(0deg) translateX(90px) rotate(0deg); } to { transform:rotate(360deg) translateX(90px) rotate(-360deg); } }
     @keyframes blink    { 0%,100% { opacity:1; } 50% { opacity:0; } }
     @keyframes gradShift { 0%,100% { background-position:0% 50%; } 50% { background-position:100% 50%; } }
+    @keyframes spin { from { transform:rotate(0deg); } to { transform:rotate(360deg); } }
 
     .fade-up    { animation: fadeUp 0.7s ease both; }
     .fade-in    { animation: fadeIn 0.6s ease both; }
@@ -669,7 +670,7 @@ function Contact() {
   const [form, setForm] = useState({ name:"", email:"", message:"" });
   const [sent, setSent] = useState(false);
   const [formErrors, setFormErrors] = useState({});
-
+  const [loading, setLoading] = useState(false);
   // VALIDATION FUNCTION
   const validateForm = () => {
     const errors = {};
@@ -702,7 +703,7 @@ function Contact() {
     }
 
     setFormErrors({});
-
+    setLoading(true); 
     try {
       const response = await fetch("https://formspree.io/f/maqzzgge", {
         method: "POST",
@@ -725,6 +726,8 @@ function Contact() {
     } catch (error) {
       console.error("Error:", error);
       alert("Error sending message. Please check your internet connection.");
+    } finally {
+      setLoading(false); 
     }
   };
 
@@ -807,9 +810,31 @@ function Contact() {
                 </p>
               )}
             </div>
-            <button className="btn-primary" onClick={handleSubmit} style={{ width:"100%", fontSize:16 }}>
-              Send Message →
-            </button>
+<button 
+  className="btn-primary" 
+  onClick={handleSubmit} 
+  disabled={loading}
+  style={{ width:"100%", fontSize:16, opacity: loading ? 0.6 : 1 }}
+>
+  {loading ? (
+    <>
+      <span style={{ 
+        display: "inline-block",
+        width: "16px",
+        height: "16px",
+        border: "2px solid rgba(255,255,255,0.3)",
+        borderTopColor: "#fff",
+        borderRadius: "50%",
+        animation: "spin 0.6s linear infinite",
+        marginRight: "8px"
+      }}>
+      </span>
+      Sending...
+    </>
+  ) : (
+    "Send Message →"
+  )}
+</button>
           </div>
         )}
 
