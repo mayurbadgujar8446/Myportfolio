@@ -21,7 +21,7 @@ In addition to my AI and data science background, I am proficient in full-stack 
     codechef: "https://www.codechef.com/users/mayur_badgujar",
     email: "mayurbadgujar8446@gmail.com",
     phone: "9359366578",
-    resume: "/resume.pdf",
+    resume: "/MayurResume.pdf",
     location: "Post Fagne, Dhule, Maharashtra – 424301, India",
   },
 
@@ -123,24 +123,29 @@ const token = {
 // ── Theme Configuration ──
 const themes = {
   dark: {
-    bg:       "#0a0a0f",
-    surface:  "#111118",
-    card:     "#16161f",
-    border:   "rgba(255,255,255,0.07)",
-    accent:   "#6366F1",
-    accentAlt:"#818CF8",
-    text:     "#e2e0f0",
-    muted:    "#7a7890",
+    bg: "#0a0a0f",
+    surface: "#111118",
+    card: "#16161f",
+    border: "rgba(255,255,255,0.07)",
+    accent: "#6366F1",
+    accentAlt: "#818CF8",
+    text: "#e2e0f0",
+    muted: "#7a7890",
+    fontSans: "'Inter', 'Segoe UI', sans-serif",
+    fontMono: "'Fira Code', 'JetBrains Mono', monospace",
   },
+
   light: {
-    bg:       "#f8f8fb",
-    surface:  "#f0f0f5",
-    card:     "#ffffff",
-    border:   "rgba(0,0,0,0.08)",
-    accent:   "#6366F1",
-    accentAlt:"#818CF8",
-    text:     "#1a1a2e",
-    muted:    "#666680",
+    bg: "#f8f8fb",
+    surface: "#f0f0f5",
+    card: "#ffffff",
+    border: "rgba(0,0,0,0.08)",
+    accent: "#6366F1",
+    accentAlt: "#818CF8",
+    text: "#1a1a2e",
+    muted: "#666680",
+    fontSans: "'Inter', 'Segoe UI', sans-serif",
+    fontMono: "'Fira Code', 'JetBrains Mono', monospace",
   }
 };
 
@@ -346,35 +351,35 @@ function Nav({ active, theme, toggleTheme, currentToken }) {
         {/* Theme Toggle Button */}
        {/* Theme Toggle Button */}
         <button
-          onClick={toggleTheme}
-          style={{
-            background: currentToken.card,
-            border: `1.5px solid ${currentToken.border}`,
-            borderRadius: "8px",
-            padding: "8px 14px",
-            cursor: "pointer",
-            fontSize: "16px",
-            transition: "all 0.2s",
-            color: currentToken.text,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-          onMouseEnter={e => e.target.style.background = currentToken.accent + "20"}
-          onMouseLeave={e => e.target.style.background = currentToken.card}
-          title={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
-        >
-          {theme === "dark" ? "☀️" : "🌙"}
-        </button>
-        
-          href={DATA.links.MayurResume.pdf}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="btn-outline"
-          style={{ padding:"8px 18px", fontSize:13 }}
-        >
-          Resume ↗
-        </a>
+  onClick={toggleTheme}
+  style={{
+    background: currentToken.card,
+    border: `1.5px solid ${currentToken.border}`,
+    borderRadius: "8px",
+    padding: "8px 14px",
+    cursor: "pointer",
+    fontSize: "16px",
+    transition: "all 0.2s",
+    color: currentToken.text,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  }}
+  onMouseEnter={e => e.target.style.background = currentToken.accent + "20"}
+  onMouseLeave={e => e.target.style.background = currentToken.card}
+>
+  {theme === "dark" ? "☀️" : "🌙"}
+</button>
+
+<a
+  href="/MayurResume.pdf"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="btn-outline"
+  style={{ padding: "8px 18px", fontSize: 13 }}
+>
+  Resume ↗
+</a>
       </div>
     </nav>
   );
