@@ -646,12 +646,24 @@ function Projects({ currentToken }) {
                   onMouseLeave={e => e.target.style.color = token.muted}>
                   GitHub ↗
                 </a>
-                <a href={p.live} target="_blank" rel="noreferrer" style={{
-                  color:token.accent, fontSize:13, textDecoration:"none",
-                  display:"flex", alignItems:"center", gap:6,
-                }}>
-                  Live  ↗
-                </a>
+<a
+  href="#"
+  onClick={(e) => {
+    if (p.live === "Not Deployed") {
+      e.preventDefault();
+      alert("🚧 This project is currently not deployed.");
+    }
+  }}
+  target={p.live !== "Not Deployed" ? "_blank" : undefined}
+  rel="noreferrer"
+  style={{
+    color: token.accent,
+    fontSize: 13,
+    textDecoration: "none",
+  }}
+>
+  Live ↗
+</a>
               </div>
 
               {/* Decorative accent line */}
