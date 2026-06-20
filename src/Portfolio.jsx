@@ -367,7 +367,7 @@ function Nav({ active, theme, toggleTheme, currentToken }) {
           {theme === "dark" ? "☀️" : "🌙"}
         </button>
         
-          href={DATA.links.resume}
+          href={DATA.links.MayurResume.pdf}
           target="_blank"
           rel="noopener noreferrer"
           className="btn-outline"
