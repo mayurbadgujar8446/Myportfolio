@@ -120,6 +120,29 @@ const token = {
   fontSans: "'Inter', 'Segoe UI', sans-serif",
   fontMono: "'Fira Code', 'JetBrains Mono', monospace",
 };
+// ── Theme Configuration ──
+const themes = {
+  dark: {
+    bg:       "#0a0a0f",
+    surface:  "#111118",
+    card:     "#16161f",
+    border:   "rgba(255,255,255,0.07)",
+    accent:   "#6366F1",
+    accentAlt:"#818CF8",
+    text:     "#e2e0f0",
+    muted:    "#7a7890",
+  },
+  light: {
+    bg:       "#f8f8fb",
+    surface:  "#f0f0f5",
+    card:     "#ffffff",
+    border:   "rgba(0,0,0,0.08)",
+    accent:   "#6366F1",
+    accentAlt:"#818CF8",
+    text:     "#1a1a2e",
+    muted:    "#666680",
+  }
+};
 
 // ── Keyframe injection (runs once) ──
 const injectKeyframes = () => {
@@ -292,7 +315,7 @@ function useTypewriter(words, speed = 120, pause = 1800) {
 // ══════════════════════════════════════════════
 
 // ── Nav ──
-function Nav({ active }) {
+function Nav({ active, theme, toggleTheme, currentToken }) {
   const [scrolled, setScrolled] = useState(false);
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 40);
@@ -304,29 +327,52 @@ function Nav({ active }) {
   return (
     <nav style={{
       position:"fixed", top:0, left:0, right:0, zIndex:100,
-      background: scrolled ? `rgba(10,10,15,0.85)` : "transparent",
+      background: scrolled ? `rgba(${theme === "dark" ? "10,10,15" : "248,248,251"},0.85)` : "transparent",
       backdropFilter: scrolled ? "blur(16px)" : "none",
-      borderBottom: scrolled ? `1px solid ${token.border}` : "none",
+      borderBottom: scrolled ? `1px solid ${currentToken.border}` : "none",
       transition: "all 0.3s",
       padding:"0 5vw",
       display:"flex", alignItems:"center", justifyContent:"space-between",
       height:64,
     }}>
       {/* Mayur's Logo */}
-      <span style={{ fontWeight:700, fontSize:20, color:token.accent, fontFamily:token.fontMono }}>
+      <span style={{ fontWeight:700, fontSize:20, color:currentToken.accent, fontFamily:currentToken.fontMono }}>
         {"<MRB />"}
       </span>
       <div style={{ display:"flex", gap:32, alignItems:"center" }}>
         {links.map(l => (
           <a key={l} href={`#${l.toLowerCase()}`} className="nav-link">{l}</a>
         ))}
-       <a
-  href={DATA.links.resume}
-  target="_blank"
-  rel="noopener noreferrer"
-  className="btn-outline"
-  style={{ padding:"8px 18px", fontSize:13 }}
->
+        {/* Theme Toggle Button */}
+       {/* Theme Toggle Button */}
+        <button
+          onClick={toggleTheme}
+          style={{
+            background: currentToken.card,
+            border: `1.5px solid ${currentToken.border}`,
+            borderRadius: "8px",
+            padding: "8px 14px",
+            cursor: "pointer",
+            fontSize: "16px",
+            transition: "all 0.2s",
+            color: currentToken.text,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+          onMouseEnter={e => e.target.style.background = currentToken.accent + "20"}
+          onMouseLeave={e => e.target.style.background = currentToken.card}
+          title={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
+        >
+          {theme === "dark" ? "☀️" : "🌙"}
+        </button>
+        
+          href={DATA.links.resume}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="btn-outline"
+          style={{ padding:"8px 18px", fontSize:13 }}
+        >
           Resume ↗
         </a>
       </div>
@@ -347,7 +393,8 @@ function Orb({ size, color, top, left, delay = 0 }) {
 }
 
 // ── Hero Section ──
-function Hero() {
+function Hero({ currentToken }) {
+  const token = currentToken;
   // EDIT: Add/remove/change the rotating words below
   const rotatingWords = ["Software Developer", "AI Enthusiast", "Data Science Learner", "Problem Solver", "Full-Stack Developer"];
   const typed = useTypewriter(rotatingWords);
@@ -436,7 +483,8 @@ function Hero() {
 }
 
 // ── About Section ──
-function About() {
+function About({ currentToken }) {
+  const token = currentToken;
   const ref = useRef(); const visible = useInView(ref);
   return (
     <section id="about" ref={ref} style={{ padding:"100px 5vw", maxWidth:1100, margin:"0 auto" }}>
@@ -498,7 +546,8 @@ function About() {
 }
 
 // ── Skills Section ──
-function Skills() {
+function Skills({ currentToken }) {
+  const token = currentToken;
   const ref = useRef(); const visible = useInView(ref);
   return (
     <section id="skills" ref={ref} style={{
@@ -537,7 +586,8 @@ function Skills() {
 }
 
 // ── Projects Section ──
-function Projects() {
+function Projects({ currentToken }) {
+  const token = currentToken;
   const ref = useRef(); const visible = useInView(ref);
   return (
     <section id="projects" ref={ref} style={{ padding:"100px 5vw" }}>
@@ -615,7 +665,8 @@ function Projects() {
 }
 
 // ── Experience / Timeline Section ──
-function Experience() {
+function Experience({ currentToken }) {
+  const token = currentToken;
   const ref = useRef(); const visible = useInView(ref);
   return (
     <section id="experience" ref={ref} style={{ padding:"100px 5vw", background:token.surface }}>
@@ -664,7 +715,8 @@ function Experience() {
 }
 
 // ── Contact Section ──
-function Contact() {
+function Contact({ currentToken }) {
+  const token = currentToken;
   const ref = useRef(); 
   const visible = useInView(ref);
   const [form, setForm] = useState({ name:"", email:"", message:"" });
@@ -780,12 +832,26 @@ function Contact() {
                   }}
                 />
                 {formErrors[f.key] && (
-                  <p style={{ color: "#ef4444", fontSize: 12, marginTop: 4 }}>
+                  <div style={{
+                    background: "rgba(239, 68, 68, 0.1)",
+                    border: "1px solid #ef4444",
+                    borderRadius: "6px",
+                    padding: "8px 12px",
+                    marginTop: 6,
+                    color: "#ef4444",
+                    fontSize: 12,
+                    fontWeight: 500,
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 6,
+                  }}>
+                    <span>⚠️</span>
                     {formErrors[f.key]}
-                  </p>
+                  </div>
                 )}
               </div>
             ))}
+            
             <div style={{ marginBottom:28 }}>
               <label style={{ display:"block", color:token.muted, fontSize:13, marginBottom:6 }}>Message</label>
               <textarea
@@ -805,36 +871,50 @@ function Contact() {
                 }}
               />
               {formErrors.message && (
-                <p style={{ color: "#ef4444", fontSize: 12, marginTop: 4 }}>
+                <div style={{
+                  background: "rgba(239, 68, 68, 0.1)",
+                  border: "1px solid #ef4444",
+                  borderRadius: "6px",
+                  padding: "8px 12px",
+                  marginTop: 6,
+                  color: "#ef4444",
+                  fontSize: 12,
+                  fontWeight: 500,
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 6,
+                }}>
+                  <span>⚠️</span>
                   {formErrors.message}
-                </p>
+                </div>
               )}
             </div>
-<button 
-  className="btn-primary" 
-  onClick={handleSubmit} 
-  disabled={loading}
-  style={{ width:"100%", fontSize:16, opacity: loading ? 0.6 : 1 }}
->
-  {loading ? (
-    <>
-      <span style={{ 
-        display: "inline-block",
-        width: "16px",
-        height: "16px",
-        border: "2px solid rgba(255,255,255,0.3)",
-        borderTopColor: "#fff",
-        borderRadius: "50%",
-        animation: "spin 0.6s linear infinite",
-        marginRight: "8px"
-      }}>
-      </span>
-      Sending...
-    </>
-  ) : (
-    "Send Message →"
-  )}
-</button>
+            
+            <button 
+              className="btn-primary" 
+              onClick={handleSubmit} 
+              disabled={loading}
+              style={{ width:"100%", fontSize:16, opacity: loading ? 0.6 : 1 }}
+            >
+              {loading ? (
+                <>
+                  <span style={{ 
+                    display: "inline-block",
+                    width: "16px",
+                    height: "16px",
+                    border: "2px solid rgba(255,255,255,0.3)",
+                    borderTopColor: "#fff",
+                    borderRadius: "50%",
+                    animation: "spin 0.6s linear infinite",
+                    marginRight: "8px"
+                  }}>
+                  </span>
+                  Sending...
+                </>
+              ) : (
+                "Send Message →"
+              )}
+            </button>
           </div>
         )}
 
@@ -852,7 +932,8 @@ function Contact() {
 }
 
 // ── Footer ──
-function Footer() {
+function Footer({ currentToken }) {
+  const token = currentToken;
   return (
     <footer style={{
       padding:"32px 5vw", borderTop:`1px solid ${token.border}`,
@@ -868,18 +949,38 @@ function Footer() {
 //  ROOT APP
 // ══════════════════════════════════════════════
 export default function Portfolio() {
-  useEffect(() => { injectKeyframes(); }, []);
+  const [theme, setTheme] = useState(() => {
+    // Get from localStorage or default to 'dark'
+    return typeof window !== "undefined" 
+      ? localStorage.getItem("theme") || "dark" 
+      : "dark";
+  });
+
+  const currentToken = themes[theme];
+
+  useEffect(() => {
+    injectKeyframes();
+  }, []);
+
+  useEffect(() => {
+    // Save theme to localStorage
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme(prev => prev === "dark" ? "light" : "dark");
+  };
 
   return (
-    <div style={{ background:token.bg, color:token.text, fontFamily:token.fontSans }}>
-      <Nav />
-      <Hero />
-      <About />
-      <Skills />
-      <Projects />
-      <Experience />
-      <Contact />
-      <Footer />
+    <div style={{ background:currentToken.bg, color:currentToken.text, fontFamily:currentToken.fontSans, transition: "background 0.3s, color 0.3s" }}>
+      <Nav theme={theme} toggleTheme={toggleTheme} currentToken={currentToken} />
+      <Hero currentToken={currentToken} />
+      <About currentToken={currentToken} />
+      <Skills currentToken={currentToken} />
+      <Projects currentToken={currentToken} />
+      <Experience currentToken={currentToken} />
+      <Contact currentToken={currentToken} />
+      <Footer currentToken={currentToken} />
     </div>
   );
 }
