@@ -278,6 +278,122 @@ const injectKeyframes = () => {
     ::-webkit-scrollbar-thumb { background: ${token.accent}; border-radius:3px; }
   `;
   document.head.appendChild(style);
+  /* ──── MOBILE RESPONSIVENESS ──── */
+    @media (max-width: 768px) {
+      * { padding: 0; margin: 0; }
+      
+      /* Navigation */
+      nav { padding: 0 3vw; }
+      nav span { font-size: 16px; }
+      
+      .nav-link { 
+        font-size: 12px; 
+        display: none;
+      }
+      
+      .nav-link:first-child { display: inline; }
+      
+      /* Hero Section */
+      h1 { 
+        font-size: clamp(28px, 6vw, 48px) !important;
+        line-height: 1.2;
+      }
+      
+      h2 { font-size: clamp(16px, 3vw, 24px) !important; }
+      
+      .btn-primary, .btn-outline { 
+        padding: 10px 20px;
+        font-size: 14px;
+      }
+      
+      /* Sections */
+      section { padding: 60px 4vw !important; }
+      
+      /* Grid Layouts */
+      #about > div { 
+        grid-template-columns: 1fr !important;
+        gap: 40px !important;
+      }
+      
+      #skills > div > div { 
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)) !important;
+        gap: 16px !important;
+      }
+      
+      #projects > div > div { 
+        grid-template-columns: 1fr !important;
+        gap: 16px !important;
+      }
+      
+      /* Cards */
+      .card-3d { 
+        transform: none !important;
+        padding: 16px 16px !important;
+      }
+      
+      .card-3d:hover { 
+        transform: translateY(-4px) !important;
+        box-shadow: 4px 8px 20px rgba(0,0,0,0.3) !important;
+      }
+      
+      /* Skills & Projects Text */
+      h3 { font-size: 18px !important; }
+      p { font-size: 14px !important; }
+      
+      /* Form */
+      #contact > div { max-width: 100% !important; }
+      
+      .input-field { 
+        padding: 10px 12px;
+        font-size: 14px;
+      }
+      
+      /* Footer */
+      footer { font-size: 12px; }
+      
+      /* Scroll to Top Button */
+      button[aria-label="Scroll to top"] {
+        bottom: 20px !important;
+        right: 20px !important;
+        width: 45px !important;
+        height: 45px !important;
+        font-size: 18px !important;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      nav { padding: 0 2vw; height: 56px; }
+      
+      section { padding: 40px 3vw !important; }
+      
+      h1 { font-size: clamp(24px, 5vw, 40px) !important; }
+      h2 { font-size: clamp(14px, 2.5vw, 20px) !important; }
+      
+      .btn-primary, .btn-outline { 
+        padding: 8px 16px;
+        font-size: 13px;
+      }
+      
+      .tag { 
+        padding: 2px 8px;
+        font-size: 10px;
+      }
+      
+      .skill-bar-fill { height: 4px; }
+      
+      .timeline-dot { 
+        width: 12px !important;
+        height: 12px !important;
+      }
+      
+      button[aria-label="Scroll to top"] {
+        bottom: 16px !important;
+        right: 16px !important;
+        width: 40px !important;
+        height: 40px !important;
+      }
+    }
+  `;
 };
 
 // ── Intersection Observer hook for scroll-triggered animations ──
