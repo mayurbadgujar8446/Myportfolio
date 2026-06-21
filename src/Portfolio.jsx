@@ -7,7 +7,7 @@ const DATA = {
   name: "Mayur Ravindra Badgujar",
   title: "Data Science",
   tagline: "I build scalable web applications",
-  profileImage: "/profile.jpg",
+  profileImage: "/profileImage.jpeg",
 
   // ── About Section ──
   about: `I am a motivated Artificial Intelligence and Data Science student with a strong passion for technology, problem-solving, and innovation. I have developed solid programming skills in Python and data analysis tools such as NumPy and Pandas, enabling me to work effectively with data-driven applications and AI-related projects.
@@ -666,7 +666,7 @@ function About({ currentToken }) {
             {/* EDIT: Replace the emoji below with an <img> tag once you have your photo:
                 <img src={DATA.profileImage} alt="Profile" style={{width:"100%",height:"100%",objectFit:"cover"}} />
             */}
-            <span style={{ fontSize:80 }}>👤</span>
+            <img src={DATA.profileImage} alt="Profile" style={{width:"100%",height:"100%",objectFit:"cover"}} />
 
             {/* decorative corner accent */}
             <div style={{
