@@ -439,20 +439,47 @@ function Hero({ currentToken }) {
         <p className="section-label fade-up" style={{ marginBottom:16 }} aria-hidden="false">
           Hello, world. I'm
         </p>
+        <h1
+  className="fade-up"
+  style={{
+    fontSize: "clamp(48px, 8vw, 88px)",
+    fontWeight: 800,
+    marginBottom: 12,
+    lineHeight: 1.05
+  }}
+  aria-label={DATA.name}
+>
+  {DATA.name}
+</h1>
 
-        <h1 className="fade-up" style={{...}} aria-label={DATA.name}>
-          {DATA.name}
-        </h1>
+<h2
+  style={{
+    fontSize: "24px",
+    color: token.text,
+    marginBottom: 24
+  }}
+  aria-live="polite"
+  aria-atomic="true"
+>
+  <span style={{ color: token.accent, fontFamily: token.fontMono }}>
+    {">"}
+  </span>{" "}
+  {typed}
+  <span style={{ animation: "blink 1s step-end infinite", color: token.accent }}>
+    |
+  </span>
+</h2>
 
-        <h2 style={{...}} aria-live="polite" aria-atomic="true">
-          <span style={{ color:token.accent, fontFamily:token.fontMono }}>{">"}</span>{" "}
-          {typed}
-          <span style={{ animation:"blink 1s step-end infinite", color:token.accent }}>|</span>
-        </h2>
-
-        <p style={{...}}>
-          {DATA.tagline}
-        </p>
+<p
+  style={{
+    color: token.muted,
+    fontSize: "18px",
+    lineHeight: 1.8,
+    marginBottom: 32
+  }}
+>
+  {DATA.tagline}
+</p>
 
         <div style={{ display:"flex", gap:16, justifyContent:"center", flexWrap:"wrap" }}>
           <a href="#projects" className="btn-primary" aria-label="View My Work - Projects section">View My Work</a>
@@ -991,20 +1018,6 @@ function Contact({ currentToken }) {
     </section>
   );
 }
-
-        {/* Direct email link */}
-        <p style={{ marginTop:32, color:token.muted, fontSize:14 }}>
-          Or email me directly at{" "}
-          <a href={`mailto:${DATA.links.email}`}
-            style={{ color:token.accent, textDecoration:"none" }}>
-            {DATA.links.email}
-          </a>
-        </p>
-      </div>
-    </section>
-  );
-}
-
 // ── Footer ──
 function Footer({ currentToken }) {
   const token = currentToken;
