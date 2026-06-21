@@ -952,15 +952,62 @@ function Contact({ currentToken }) {
 }
 
 // ── Footer ──
+// ── Footer ──
 function Footer({ currentToken }) {
   const token = currentToken;
+  const [showScrollTop, setShowScrollTop] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowScrollTop(window.scrollY > 300);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   return (
     <footer style={{
       padding:"32px 5vw", borderTop:`1px solid ${token.border}`,
       textAlign:"center", color:token.muted, fontSize:13,
+      position: "relative",
     }}>
-      {/* EDIT: Replace name and year */}
       <p>Designed &amp; Built by <span style={{ color:token.accent }}>Mayur Ravindra Badgujar</span> · {new Date().getFullYear()}</p>
+      
+      {/* Scroll to Top Button */}
+      {showScrollTop && (
+        <button
+          onClick={scrollToTop}
+          style={{
+            position: "fixed",
+            bottom: "30px",
+            right: "30px",
+            background: token.accent,
+            color: "#fff",
+            border: "none",
+            borderRadius: "50%",
+            width: "50px",
+            height: "50px",
+            cursor: "pointer",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            fontSize: "20px",
+            zIndex: 99,
+            transition: "all 0.3s",
+            boxShadow: `0 4px 12px ${token.accent}44`,
+          }}
+          onMouseEnter={e => e.target.style.transform = "translateY(-5px)"}
+          onMouseLeave={e => e.target.style.transform = "translateY(0)"}
+          aria-label="Scroll to top"
+          title="Back to top"
+        >
+          ↑
+        </button>
+      )}
     </footer>
   );
 }
