@@ -391,6 +391,7 @@ function Nav({ active, theme, toggleTheme, currentToken }) {
         >
           {theme === "dark" ? "☀️" : "🌙"}
         </button>
+<a
   href="/MayurResume.pdf"
   target="_blank"
   rel="noopener noreferrer"
@@ -400,8 +401,6 @@ function Nav({ active, theme, toggleTheme, currentToken }) {
 >
   Resume ↗
 </a>
-          Resume ↗
-        </a>
       </div>
     </nav>
   );
