@@ -429,7 +429,7 @@ function useTypewriter(words, speed = 120, pause = 1800) {
 // ── Nav ──
 function Nav({ active, theme, toggleTheme, currentToken }) {
   const [scrolled, setScrolled] = useState(false);
-  const [activeSection, setActiveSection] = useState("hero");
+  // const [activeSection, setActiveSection] = useState("hero");
 
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 40);
@@ -514,16 +514,16 @@ function Nav({ active, theme, toggleTheme, currentToken }) {
 }
 
 // ── 3D Floating Orb (hero decoration) ──
-function Orb({ size, color, top, left, delay = 0 }) {
-  return (
-    <div className="floating-shape" style={{
-      width:size, height:size, background:color,
-      top, left,
-      animation:`float ${4 + delay}s ease-in-out infinite`,
-      animationDelay:`${delay}s`,
-    }} />
-  );
-}
+// function Orb({ size, color, top, left, delay = 0 }) {
+//   return (
+//     <div className="floating-shape" style={{
+//       width:size, height:size, background:color,
+//       top, left,
+//       animation:`float ${4 + delay}s ease-in-out infinite`,
+//       animationDelay:`${delay}s`,
+//     }} />
+//   );
+// }
 
 // ── Hero Section ──
 function Hero({ currentToken }) {
