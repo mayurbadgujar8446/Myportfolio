@@ -276,13 +276,11 @@ const injectKeyframes = () => {
     ::-webkit-scrollbar { width:6px; }
     ::-webkit-scrollbar-track { background: ${token.bg}; }
     ::-webkit-scrollbar-thumb { background: ${token.accent}; border-radius:3px; }
-  `;
-  document.head.appendChild(style);
-  /* ──── MOBILE RESPONSIVENESS ──── */
+
+    /* ──── MOBILE RESPONSIVENESS ──── */
     @media (max-width: 768px) {
       * { padding: 0; margin: 0; }
       
-      /* Navigation */
       nav { padding: 0 3vw; }
       nav span { font-size: 16px; }
       
@@ -293,7 +291,6 @@ const injectKeyframes = () => {
       
       .nav-link:first-child { display: inline; }
       
-      /* Hero Section */
       h1 { 
         font-size: clamp(28px, 6vw, 48px) !important;
         line-height: 1.2;
@@ -306,10 +303,8 @@ const injectKeyframes = () => {
         font-size: 14px;
       }
       
-      /* Sections */
       section { padding: 60px 4vw !important; }
       
-      /* Grid Layouts */
       #about > div { 
         grid-template-columns: 1fr !important;
         gap: 40px !important;
@@ -325,7 +320,6 @@ const injectKeyframes = () => {
         gap: 16px !important;
       }
       
-      /* Cards */
       .card-3d { 
         transform: none !important;
         padding: 16px 16px !important;
@@ -336,11 +330,9 @@ const injectKeyframes = () => {
         box-shadow: 4px 8px 20px rgba(0,0,0,0.3) !important;
       }
       
-      /* Skills & Projects Text */
       h3 { font-size: 18px !important; }
       p { font-size: 14px !important; }
       
-      /* Form */
       #contact > div { max-width: 100% !important; }
       
       .input-field { 
@@ -348,10 +340,8 @@ const injectKeyframes = () => {
         font-size: 14px;
       }
       
-      /* Footer */
       footer { font-size: 12px; }
       
-      /* Scroll to Top Button */
       button[aria-label="Scroll to top"] {
         bottom: 20px !important;
         right: 20px !important;
@@ -394,6 +384,7 @@ const injectKeyframes = () => {
       }
     }
   `;
+  document.head.appendChild(style);
 };
 
 // ── Intersection Observer hook for scroll-triggered animations ──
