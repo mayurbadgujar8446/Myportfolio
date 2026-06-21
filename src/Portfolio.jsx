@@ -322,6 +322,8 @@ function useTypewriter(words, speed = 120, pause = 1800) {
 // ── Nav ──
 function Nav({ active, theme, toggleTheme, currentToken }) {
   const [scrolled, setScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState("hero");
+
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 40);
     window.addEventListener("scroll", fn);
@@ -329,57 +331,77 @@ function Nav({ active, theme, toggleTheme, currentToken }) {
   }, []);
 
   const links = ["About", "Skills", "Projects", "Experience", "Contact"];
+  
   return (
-    <nav style={{
-      position:"fixed", top:0, left:0, right:0, zIndex:100,
-      background: scrolled ? `rgba(${theme === "dark" ? "10,10,15" : "248,248,251"},0.85)` : "transparent",
-      backdropFilter: scrolled ? "blur(16px)" : "none",
-      borderBottom: scrolled ? `1px solid ${currentToken.border}` : "none",
-      transition: "all 0.3s",
-      padding:"0 5vw",
-      display:"flex", alignItems:"center", justifyContent:"space-between",
-      height:64,
-    }}>
+    <nav 
+      style={{
+        position:"fixed", top:0, left:0, right:0, zIndex:100,
+        background: scrolled ? `rgba(${theme === "dark" ? "10,10,15" : "248,248,251"},0.85)` : "transparent",
+        backdropFilter: scrolled ? "blur(16px)" : "none",
+        borderBottom: scrolled ? `1px solid ${currentToken.border}` : "none",
+        transition: "all 0.3s",
+        padding:"0 5vw",
+        display:"flex", alignItems:"center", justifyContent:"space-between",
+        height:64,
+      }}
+      aria-label="Main navigation"
+      role="navigation"
+    >
       {/* Mayur's Logo */}
-      <span style={{ fontWeight:700, fontSize:20, color:currentToken.accent, fontFamily:currentToken.fontMono }}>
+      <a 
+        href="#hero" 
+        style={{ fontWeight:700, fontSize:20, color:currentToken.accent, fontFamily:currentToken.fontMono, textDecoration: "none" }}
+        aria-label="Mayur's Portfolio - Home"
+      >
         {"<MRB />"}
-      </span>
+      </a>
+      
       <div style={{ display:"flex", gap:32, alignItems:"center" }}>
-        {links.map(l => (
-          <a key={l} href={`#${l.toLowerCase()}`} className="nav-link">{l}</a>
-        ))}
+{links.map(l => (
+  <a 
+    key={l} 
+    href={`#${l.toLowerCase()}`} 
+    className="nav-link"
+    aria-label={`Navigate to ${l} section`}
+  >
+    {l}
+  </a>
+))}
+        
         {/* Theme Toggle Button */}
-       {/* Theme Toggle Button */}
         <button
-  onClick={toggleTheme}
-  style={{
-    background: currentToken.card,
-    border: `1.5px solid ${currentToken.border}`,
-    borderRadius: "8px",
-    padding: "8px 14px",
-    cursor: "pointer",
-    fontSize: "16px",
-    transition: "all 0.2s",
-    color: currentToken.text,
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  }}
-  onMouseEnter={e => e.target.style.background = currentToken.accent + "20"}
-  onMouseLeave={e => e.target.style.background = currentToken.card}
->
-  {theme === "dark" ? "☀️" : "🌙"}
-</button>
-
-<a
+          onClick={toggleTheme}
+          style={{
+            background: currentToken.card,
+            border: `1.5px solid ${currentToken.border}`,
+            borderRadius: "8px",
+            padding: "8px 14px",
+            cursor: "pointer",
+            fontSize: "16px",
+            transition: "all 0.2s",
+            color: currentToken.text,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+          onMouseEnter={e => e.target.style.background = currentToken.accent + "20"}
+          onMouseLeave={e => e.target.style.background = currentToken.card}
+          aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
+          title={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
+        >
+          {theme === "dark" ? "☀️" : "🌙"}
+        </button>
   href="/MayurResume.pdf"
   target="_blank"
   rel="noopener noreferrer"
   className="btn-outline"
   style={{ padding: "8px 18px", fontSize: 13 }}
+  aria-label="Download Resume (PDF)"
 >
   Resume ↗
 </a>
+          Resume ↗
+        </a>
       </div>
     </nav>
   );
@@ -400,84 +422,61 @@ function Orb({ size, color, top, left, delay = 0 }) {
 // ── Hero Section ──
 function Hero({ currentToken }) {
   const token = currentToken;
-  // EDIT: Add/remove/change the rotating words below
   const rotatingWords = ["Software Developer", "AI Enthusiast", "Data Science Learner", "Problem Solver", "Full-Stack Developer"];
   const typed = useTypewriter(rotatingWords);
 
   return (
-    <section id="hero" style={{
-      minHeight:"100vh", display:"flex", alignItems:"center", justifyContent:"center",
-      position:"relative", overflow:"hidden", padding:"0 5vw",
-    }}>
-      {/* Ambient background orbs */}
-      <Orb size={500} color={token.accent}  top="-10%"  left="-5%"   delay={0} />
-      <Orb size={350} color="#a78bfa"        top="50%"   left="70%"   delay={1.5} />
-      <Orb size={200} color="#6ee7b7"        top="80%"   left="10%"   delay={3} />
-
-      {/* Grid overlay */}
-      <div style={{
-        position:"absolute", inset:0,
-        backgroundImage:`
-          linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px)`,
-        backgroundSize:"60px 60px",
-        zIndex:0,
-      }} />
-
+    <section 
+      id="hero" 
+      style={{
+        minHeight:"100vh", display:"flex", alignItems:"center", justifyContent:"center",
+        position:"relative", overflow:"hidden", padding:"0 5vw",
+      }}
+      aria-label="Hero section"
+    >
+      {/* ... orbs and grid ... */}
+      
       <div style={{ position:"relative", zIndex:1, maxWidth:750, textAlign:"center" }}>
-        {/* Greeting */}
-        <p className="section-label fade-up" style={{ marginBottom:16 }}>
+        <p className="section-label fade-up" style={{ marginBottom:16 }} aria-hidden="false">
           Hello, world. I'm
         </p>
 
-        {/* Name — BIG */}
-        <h1 className="fade-up" style={{
-          fontSize:"clamp(42px, 8vw, 90px)",
-          fontWeight:700,
-          lineHeight:1.05,
-          marginBottom:16,
-          background:`linear-gradient(135deg, ${token.text} 30%, ${token.accent} 100%)`,
-          WebkitBackgroundClip:"text",
-          WebkitTextFillColor:"transparent",
-          backgroundSize:"200%",
-          animation:"gradShift 6s ease infinite",
-          animationDelay:"0.5s",
-        }}>
+        <h1 className="fade-up" style={{...}} aria-label={DATA.name}>
           {DATA.name}
         </h1>
 
-        {/* Typewriter */}
-        <h2 style={{
-          fontSize:"clamp(20px, 3vw, 32px)", fontWeight:400, color:token.muted,
-          marginBottom:24, minHeight:40,
-        }}>
+        <h2 style={{...}} aria-live="polite" aria-atomic="true">
           <span style={{ color:token.accent, fontFamily:token.fontMono }}>{">"}</span>{" "}
           {typed}
           <span style={{ animation:"blink 1s step-end infinite", color:token.accent }}>|</span>
         </h2>
 
-        <p style={{ fontSize:17, color:token.muted, maxWidth:520, margin:"0 auto 40px", lineHeight:1.7 }}>
+        <p style={{...}}>
           {DATA.tagline}
         </p>
 
-        {/* CTA buttons */}
         <div style={{ display:"flex", gap:16, justifyContent:"center", flexWrap:"wrap" }}>
-          <a href="#projects" className="btn-primary">View My Work</a>
-          <a href="#contact"  className="btn-outline">Let's Talk</a>
+          <a href="#projects" className="btn-primary" aria-label="View My Work - Projects section">View My Work</a>
+          <a href="#contact" className="btn-outline" aria-label="Let's Talk - Contact section">Let's Talk</a>
         </div>
 
-        {/* Social links */}
         <div style={{ marginTop:48, display:"flex", gap:24, justifyContent:"center" }}>
           {[
-            { label:"GitHub",   href:DATA.links.github      },
-            { label:"LinkedIn", href:DATA.links.linkedin    },
-            { label:"CodeChef", href:DATA.links.codechef    },
-            { label:"Email",    href:`mailto:${DATA.links.email}` },
+            { label:"GitHub", href:DATA.links.github },
+            { label:"LinkedIn", href:DATA.links.linkedin },
+            { label:"CodeChef", href:DATA.links.codechef },
+            { label:"Email", href:`mailto:${DATA.links.email}` },
           ].map(s => (
-            <a key={s.label} href={s.href} target="_blank" rel="noreferrer"
+            <a 
+              key={s.label} 
+              href={s.href} 
+              target="_blank" 
+              rel="noreferrer"
               style={{ color:token.muted, fontSize:13, textDecoration:"none", transition:"color 0.2s" }}
               onMouseEnter={e => e.target.style.color = token.accent}
-              onMouseLeave={e => e.target.style.color = token.muted}>
+              onMouseLeave={e => e.target.style.color = token.muted}
+              aria-label={`Visit ${s.label}`}
+            >
               {s.label}
             </a>
           ))}
@@ -743,6 +742,7 @@ function Contact({ currentToken }) {
   const [sent, setSent] = useState(false);
   const [formErrors, setFormErrors] = useState({});
   const [loading, setLoading] = useState(false);
+
   // VALIDATION FUNCTION
   const validateForm = () => {
     const errors = {};
@@ -804,7 +804,12 @@ function Contact({ currentToken }) {
   };
 
   return (
-    <section id="contact" ref={ref} style={{ padding:"100px 5vw" }}>
+    <section 
+      id="contact" 
+      ref={ref} 
+      style={{ padding:"100px 5vw" }}
+      aria-label="Contact section"
+    >
       <div style={{
         maxWidth:620, margin:"0 auto", textAlign:"center",
         opacity: visible ? 1 : 0, transform: visible ? "none" : "translateY(40px)",
@@ -826,17 +831,28 @@ function Contact({ currentToken }) {
             ✓ Message sent! I'll get back to you soon.
           </div>
         ) : (
-          <div style={{
-            background:token.card, border:`1px solid ${token.border}`,
-            borderRadius:20, padding:"40px 36px", textAlign:"left",
-          }}>
+          <form 
+            onSubmit={handleSubmit}
+            aria-label="Contact form"
+            style={{
+              background:token.card, border:`1px solid ${token.border}`,
+              borderRadius:20, padding:"40px 36px", textAlign:"left",
+            }}
+          >
+            {/* Name and Email Fields */}
             {[
               { key:"name",    label:"Name",    type:"text",     placeholder:"Your Name" },
               { key:"email",   label:"Email",   type:"email",    placeholder:"your.email@example.com" },
             ].map(f => (
               <div key={f.key} style={{ marginBottom:20 }}>
-                <label style={{ display:"block", color:token.muted, fontSize:13, marginBottom:6 }}>{f.label}</label>
+                <label 
+                  htmlFor={f.key}
+                  style={{ display:"block", color:token.muted, fontSize:13, marginBottom:6 }}
+                >
+                  {f.label}
+                </label>
                 <input
+                  id={f.key}
                   type={f.type}
                   placeholder={f.placeholder}
                   className="input-field"
@@ -847,12 +863,69 @@ function Contact({ currentToken }) {
                       setFormErrors({ ...formErrors, [f.key]: "" });
                     }
                   }}
+                  aria-invalid={!!formErrors[f.key]}
+                  aria-describedby={formErrors[f.key] ? `${f.key}-error` : undefined}
                   style={{
                     borderColor: formErrors[f.key] ? "#ef4444" : undefined,
                   }}
                 />
                 {formErrors[f.key] && (
-                  <div style={{
+                  <div 
+                    id={`${f.key}-error`}
+                    role="alert"
+                    style={{
+                      background: "rgba(239, 68, 68, 0.1)",
+                      border: "1px solid #ef4444",
+                      borderRadius: "6px",
+                      padding: "8px 12px",
+                      marginTop: 6,
+                      color: "#ef4444",
+                      fontSize: 12,
+                      fontWeight: 500,
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 6,
+                    }}
+                  >
+                    <span>⚠️</span>
+                    {formErrors[f.key]}
+                  </div>
+                )}
+              </div>
+            ))}
+            
+            {/* Message Textarea */}
+            <div style={{ marginBottom:28 }}>
+              <label 
+                htmlFor="message"
+                style={{ display:"block", color:token.muted, fontSize:13, marginBottom:6 }}
+              >
+                Message
+              </label>
+              <textarea
+                id="message"
+                rows={5}
+                placeholder="Let me know about your project or opportunity..."
+                className="input-field"
+                value={form.message}
+                onChange={e => {
+                  setForm({ ...form, message: e.target.value });
+                  if (formErrors.message) {
+                    setFormErrors({ ...formErrors, message: "" });
+                  }
+                }}
+                aria-invalid={!!formErrors.message}
+                aria-describedby={formErrors.message ? "message-error" : undefined}
+                style={{ 
+                  resize:"vertical",
+                  borderColor: formErrors.message ? "#ef4444" : undefined,
+                }}
+              />
+              {formErrors.message && (
+                <div 
+                  id="message-error"
+                  role="alert"
+                  style={{
                     background: "rgba(239, 68, 68, 0.1)",
                     border: "1px solid #ef4444",
                     borderRadius: "6px",
@@ -864,79 +937,61 @@ function Contact({ currentToken }) {
                     display: "flex",
                     alignItems: "center",
                     gap: 6,
-                  }}>
-                    <span>⚠️</span>
-                    {formErrors[f.key]}
-                  </div>
-                )}
-              </div>
-            ))}
-            
-            <div style={{ marginBottom:28 }}>
-              <label style={{ display:"block", color:token.muted, fontSize:13, marginBottom:6 }}>Message</label>
-              <textarea
-                rows={5}
-                placeholder="Let me know about your project or opportunity..."
-                className="input-field"
-                style={{ 
-                  resize:"vertical",
-                  borderColor: formErrors.message ? "#ef4444" : undefined,
-                }}
-                value={form.message}
-                onChange={e => {
-                  setForm({ ...form, message: e.target.value });
-                  if (formErrors.message) {
-                    setFormErrors({ ...formErrors, message: "" });
-                  }
-                }}
-              />
-              {formErrors.message && (
-                <div style={{
-                  background: "rgba(239, 68, 68, 0.1)",
-                  border: "1px solid #ef4444",
-                  borderRadius: "6px",
-                  padding: "8px 12px",
-                  marginTop: 6,
-                  color: "#ef4444",
-                  fontSize: 12,
-                  fontWeight: 500,
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 6,
-                }}>
+                  }}
+                >
                   <span>⚠️</span>
                   {formErrors.message}
                 </div>
               )}
             </div>
             
+            {/* Submit Button */}
             <button 
+              type="submit"
               className="btn-primary" 
-              onClick={handleSubmit} 
               disabled={loading}
+              aria-busy={loading}
+              aria-label={loading ? "Sending message" : "Send message"}
               style={{ width:"100%", fontSize:16, opacity: loading ? 0.6 : 1 }}
             >
               {loading ? (
                 <>
-                  <span style={{ 
-                    display: "inline-block",
-                    width: "16px",
-                    height: "16px",
-                    border: "2px solid rgba(255,255,255,0.3)",
-                    borderTopColor: "#fff",
-                    borderRadius: "50%",
-                    animation: "spin 0.6s linear infinite",
-                    marginRight: "8px"
-                  }}>
-                  </span>
+                  <span 
+                    style={{ 
+                      display: "inline-block",
+                      width: "16px",
+                      height: "16px",
+                      border: "2px solid rgba(255,255,255,0.3)",
+                      borderTopColor: "#fff",
+                      borderRadius: "50%",
+                      animation: "spin 0.6s linear infinite",
+                      marginRight: "8px"
+                    }}
+                    aria-hidden="true"
+                  />
                   Sending...
                 </>
               ) : (
                 "Send Message →"
               )}
             </button>
-          </div>
+          </form>
         )}
+
+        {/* Direct email link */}
+        <p style={{ marginTop:32, color:token.muted, fontSize:14 }}>
+          Or email me directly at{" "}
+          <a 
+            href={`mailto:${DATA.links.email}`}
+            style={{ color:token.accent, textDecoration:"none" }}
+          >
+            {DATA.links.email}
+          </a>
+        </p>
+      </div>
+    </section>
+  );
+}
 
         {/* Direct email link */}
         <p style={{ marginTop:32, color:token.muted, fontSize:14 }}>
@@ -951,7 +1006,6 @@ function Contact({ currentToken }) {
   );
 }
 
-// ── Footer ──
 // ── Footer ──
 function Footer({ currentToken }) {
   const token = currentToken;
