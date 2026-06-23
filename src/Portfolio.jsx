@@ -28,9 +28,9 @@ In addition to my AI and data science background, I am proficient in full-stack 
   // ── Skills ──
   skills: [
     { name: "Python",                    level: 80, icon: "🐍" },
-    { name: "MySQL",                     level: 80, icon: "🗄️" },
-    { name: "Data Science",              level: 70, icon: "📊" },
-    { name: "Operating Systems Basic",   level: 70, icon: "💻" },
+    { name: "MySQL",                     level: 75, icon: "🗄️" },
+    { name: "Data Science",              level: 60, icon: "📊" },
+    { name: "Operating Systems Basic",   level: 65, icon: "💻" },
     { name: "Web Development",           level: 60, icon: "🌐" },
     { name: "Full-Stack Dev",            level: 60, icon: "🚀" },
     { name: "Computer Networks Basic",   level: 50, icon: "🌍" },
@@ -643,7 +643,7 @@ function About({ currentToken }) {
           <div style={{ display:"flex", gap:32, marginTop:32 }}>
             {[
               { num:"4+", label:"Projects Built" },
-              { num:"2000+", label:"Problems Solved" },
+              { num:"1500+", label:"Problems Solved" },
               { num:"3rd Year", label:"Artificial Intelligence & Data Science Student" },
             ].map(s => (
               <div key={s.label}>
@@ -801,7 +801,6 @@ function Projects({ currentToken }) {
     Live ↗
   </a>
 </div>
-              {/* Decorative accent line */}
               <div style={{
                 position:"absolute", bottom:0, left:0, right:0, height:2,
                 background: p.featured
