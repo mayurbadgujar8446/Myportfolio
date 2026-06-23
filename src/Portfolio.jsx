@@ -12,7 +12,7 @@ const DATA = {
   // ── About Section ──
   about: `I am a motivated Artificial Intelligence and Data Science student with a strong passion for technology, problem-solving, and innovation. I have developed solid programming skills in Python and data analysis tools such as NumPy and Pandas, enabling me to work effectively with data-driven applications and AI-related projects.
 
-In addition to my AI and data science background, I am proficient in full-stack web development, with experience building responsive and user-friendly web applications using HTML, CSS, Node.js, Express.js, and MySQL. I also possess a strong foundation in Data Structures and Algorithms, demonstrated by solving over 2,000 coding problems on competitive programming platforms.`,
+In addition to my AI and data science background, I am proficient in full-stack web development, with experience building responsive and user-friendly web applications using HTML, CSS, Node.js, Express.js, and MySQL. I also possess a strong foundation in Data Structures and Algorithms, demonstrated by solving over 1,500 coding problems on competitive programming platforms.`,
 
   // ── Social / Contact Links ──
   links: {
@@ -90,7 +90,7 @@ In addition to my AI and data science background, I am proficient in full-stack 
       role: "Competitive Programmer",
       company: "CodeChef",
       period: "2024 – Present",
-      desc: "Solved 2000+ coding challenges across Data Structures, Algorithms, and problem-solving paradigms.",
+      desc: "Solved 1500+ coding challenges across Data Structures, Algorithms, and problem-solving paradigms.",
     },
   ],
 
