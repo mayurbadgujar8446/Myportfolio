@@ -97,7 +97,7 @@ In addition to my AI and data science background, I am proficient in full-stack 
   // ── About Stats ──
   stats: [
     { num: "4+", label: "Projects Built" },
-    { num: "2000+", label: "Problems Solved" },
+    { num: "1500+", label: "Problems Solved" },
     { num: "3rd Year", label: "Artificial Intelligence & Data Science Student" },
   ],
 
