@@ -78,7 +78,7 @@ In addition to my AI and data science background, I am proficient in full-stack 
     {
       role: "Competitive Programmer",
       company: "CodeChef",
-      period: "2024 – Present",
+      period: "2026 – Present",
       desc: "Solved 1500+ coding challenges across Data Structures, Algorithms, and problem-solving paradigms.",
     },
   ],
