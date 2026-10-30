@@ -1,20 +1,16 @@
-// correct 
 import { useState, useEffect, useRef } from "react";
 
 // ─── MAYUR'S COMPLETE PORTFOLIO DATA ───
 const DATA = {
-  // ── Hero Section ──
   name: "Mayur Ravindra Badgujar",
   title: "Data Science",
   tagline: "I build scalable web applications",
   profileImage: "/profileImage.jpeg",
 
-  // ── About Section ──
   about: `I am a motivated Artificial Intelligence and Data Science student with a strong passion for technology, problem-solving, and innovation. I have developed solid programming skills in Python and data analysis tools such as NumPy and Pandas, enabling me to work effectively with data-driven applications and AI-related projects.
 
 In addition to my AI and data science background, I am proficient in full-stack web development, with experience building responsive and user-friendly web applications using HTML, CSS, Node.js, Express.js, and MySQL. I also possess a strong foundation in Data Structures and Algorithms, demonstrated by solving over 1,500 coding problems on competitive programming platforms.`,
 
-  // ── Social / Contact Links ──
   links: {
     github: "https://github.com/mayurbadgujar8446",
     linkedin: "https://www.linkedin.com/in/mayurrbadgujar?utm_source=share_via&utm_content=profile&utm_medium=member_android",
@@ -25,18 +21,16 @@ In addition to my AI and data science background, I am proficient in full-stack 
     location: "Post Fagne, Dhule, Maharashtra – 424301, India",
   },
 
-  // ── Skills ──
   skills: [
-    { name: "Python",                    level: 80, icon: "🐍" },
-    { name: "MySQL",                     level: 75, icon: "🗄️" },
-    { name: "Data Science",              level: 60, icon: "📊" },
-    { name: "Operating Systems Basic",   level: 65, icon: "💻" },
-    { name: "Web Development",           level: 60, icon: "🌐" },
-    { name: "Full-Stack Dev",            level: 60, icon: "🚀" },
-    { name: "Computer Networks Basic",   level: 50, icon: "🌍" },
+    { name: "Python",                  level: 80 },
+    { name: "MySQL",                   level: 75 },
+    { name: "Data Science",            level: 60 },
+    { name: "Operating Systems Basic", level: 65 },
+    { name: "Web Development",         level: 60 },
+    { name: "Full-Stack Dev",          level: 60 },
+    { name: "Computer Networks Basic", level: 50 },
   ],
 
-  // ── Projects ──
   projects: [
     {
       title: "Smart Canteen Management System",
@@ -44,7 +38,6 @@ In addition to my AI and data science background, I am proficient in full-stack 
       tags: ["Python", "Flask", "MySQL", "HTML", "CSS", "JavaScript"],
       github: "https://github.com/mayurbadgujar8446/SmartCanteenManagementSystem",
       live: "Not Deployed",
-      featured: true,
     },
     {
       title: "Multilingual Bot Assistant",
@@ -52,7 +45,6 @@ In addition to my AI and data science background, I am proficient in full-stack 
       tags: ["Python", "Flask", "PyTorch", "NLP", "Sentence Transformers"],
       github: "https://github.com/mayurbadgujar8446/Multilingual-Bot-Assistant",
       live: "Not Deployed",
-      featured: true,
     },
     {
       title: "Task Management System",
@@ -60,7 +52,6 @@ In addition to my AI and data science background, I am proficient in full-stack 
       tags: ["Python", "Flask", "SQLite", "Bootstrap", "JavaScript"],
       github: "https://github.com/mayurbadgujar8446/Task-Magament-System",
       live: "https://task-magament-system-production.up.railway.app/",
-      featured: true,
     },
     {
       title: "Smart Task Scheduler",
@@ -68,11 +59,9 @@ In addition to my AI and data science background, I am proficient in full-stack 
       tags: ["Python", "Flask", "Algorithms", "JavaScript"],
       github: "https://github.com/mayurbadgujar8446/TaskScheduler",
       live: "https://taskscheduler-production-dee3.up.railway.app/",
-      featured: true,
     },
   ],
 
-  // ── Experience / Timeline ──
   experience: [
     {
       role: "AI & Data Science Student",
@@ -94,300 +83,193 @@ In addition to my AI and data science background, I am proficient in full-stack 
     },
   ],
 
-  // ── About Stats ──
   stats: [
-    { num: "4+", label: "Projects Built" },
-    { num: "1500+", label: "Problems Solved" },
-    { num: "3rd Year", label: "Artificial Intelligence & Data Science Student" },
+    { num: "4+", label: "Projects built" },
+    { num: "1500+", label: "Problems solved" },
+    { num: "3rd year", label: "AI & Data Science student" },
   ],
 
-  // ── Contact Section ──
-  contactHeading: "Let's Connect",
+  contactHeading: "Let's connect",
   contactText: `I am always open to discussing new opportunities, innovative projects, and collaborations in Artificial Intelligence, Data Science, and Full-Stack Development. Whether you have a project idea, a job opportunity, or simply want to connect, feel free to reach out. I'll do my best to respond as soon as possible.`,
 };
-// ─────────────────────────────────────────────────────────────
 
-// ── Inline Styles (design tokens) ──
-const token = {
-  bg:       "#0a0a0f",
-  surface:  "#111118",
-  card:     "#16161f",
-  border:   "rgba(255,255,255,0.07)",
-  accent:   "#6366F1",       // Indigo - Professional & Modern
-  accentAlt:"#818CF8",       // Lighter Indigo shade
-  text:     "#e2e0f0",
-  muted:    "#7a7890",
-  fontSans: "'Inter', 'Segoe UI', sans-serif",
-  fontMono: "'Fira Code', 'JetBrains Mono', monospace",
-};
-// ── Theme Configuration ──
+// ── Theme tokens ──
+const fontSans = "'IBM Plex Sans', 'Segoe UI', sans-serif";
+const fontMono = "'IBM Plex Mono', monospace";
+
 const themes = {
   dark: {
-    bg: "#0a0a0f",
-    surface: "#111118",
-    card: "#16161f",
-    border: "rgba(255,255,255,0.07)",
-    accent: "#6366F1",
-    accentAlt: "#818CF8",
-    text: "#e2e0f0",
-    muted: "#7a7890",
-    fontSans: "'Inter', 'Segoe UI', sans-serif",
-    fontMono: "'Fira Code', 'JetBrains Mono', monospace",
+    bg: "#0f1419",
+    surface: "#151b22",
+    card: "#1a222b",
+    border: "rgba(255,255,255,0.10)",
+    accent: "#2dd4bf",
+    accentAlt: "#5eead4",
+    onAccent: "#0f1419",
+    text: "#e6edf3",
+    muted: "#8b98a5",
+    fontSans,
+    fontMono,
   },
-
   light: {
-    bg: "#f8f8fb",
-    surface: "#f0f0f5",
+    bg: "#f8fafb",
+    surface: "#eef2f4",
     card: "#ffffff",
-    border: "rgba(0,0,0,0.08)",
-    accent: "#6366F1",
-    accentAlt: "#818CF8",
-    text: "#1a1a2e",
-    muted: "#666680",
-    fontSans: "'Inter', 'Segoe UI', sans-serif",
-    fontMono: "'Fira Code', 'JetBrains Mono', monospace",
-  }
+    border: "rgba(0,0,0,0.12)",
+    accent: "#0f766e",
+    accentAlt: "#14b8a6",
+    onAccent: "#ffffff",
+    text: "#14202b",
+    muted: "#55636f",
+    fontSans,
+    fontMono,
+  },
 };
 
-// ── Keyframe injection (runs once) ──
+// Pushes the active theme into CSS variables so the injected stylesheet follows it
+const applyTheme = (t) => {
+  const root = document.documentElement;
+  root.style.setProperty("--bg", t.bg);
+  root.style.setProperty("--surface", t.surface);
+  root.style.setProperty("--card", t.card);
+  root.style.setProperty("--border", t.border);
+  root.style.setProperty("--accent", t.accent);
+  root.style.setProperty("--accent-alt", t.accentAlt);
+  root.style.setProperty("--on-accent", t.onAccent);
+  root.style.setProperty("--text", t.text);
+  root.style.setProperty("--muted", t.muted);
+};
+
+// ── Stylesheet injection (runs once) ──
 const injectKeyframes = () => {
   if (document.getElementById("pf-keyframes")) return;
   const style = document.createElement("style");
   style.id = "pf-keyframes";
   style.textContent = `
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-    body { background: ${token.bg}; color: ${token.text}; font-family: ${token.fontSans}; }
+    body { background: var(--bg); color: var(--text); font-family: ${fontSans}; }
 
-    @keyframes fadeUp   { from { opacity:0; transform:translateY(32px); } to { opacity:1; transform:translateY(0); } }
-    @keyframes fadeIn   { from { opacity:0; } to { opacity:1; } }
-    @keyframes float    { 0%,100% { transform:translateY(0px); } 50% { transform:translateY(-12px); } }
-    @keyframes spinSlow { from { transform:rotateY(0deg); } to { transform:rotateY(360deg); } }
-    @keyframes pulse    { 0%,100% { box-shadow: 0 0 0 0 rgba(124,111,255,0.4); } 70% { box-shadow: 0 0 0 12px rgba(124,111,255,0); } }
-    @keyframes shimmer  { from { background-position: -400px 0; } to { background-position: 400px 0; } }
-    @keyframes orbit    { from { transform:rotate(0deg) translateX(90px) rotate(0deg); } to { transform:rotate(360deg) translateX(90px) rotate(-360deg); } }
-    @keyframes blink    { 0%,100% { opacity:1; } 50% { opacity:0; } }
-    @keyframes gradShift { 0%,100% { background-position:0% 50%; } 50% { background-position:100% 50%; } }
-    @keyframes spin { from { transform:rotate(0deg); } to { transform:rotate(360deg); } }
+    @keyframes fadeUp { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes blink  { 0%,100% { opacity:1; } 50% { opacity:0; } }
+    @keyframes spin   { from { transform:rotate(0deg); } to { transform:rotate(360deg); } }
 
-    .fade-up    { animation: fadeUp 0.7s ease both; }
-    .fade-in    { animation: fadeIn 0.6s ease both; }
+    .fade-up { animation: fadeUp 0.6s ease both; }
 
-    .nav-link { color: ${token.muted}; text-decoration:none; font-size:14px; transition:color 0.2s; }
-    .nav-link:hover { color: ${token.text}; }
+    a:focus-visible, button:focus-visible, .input-field:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    .nav-link { color: var(--muted); text-decoration:none; font-size:14px; transition:color 0.2s; }
+    .nav-link:hover { color: var(--text); }
 
     .btn-primary {
-      background: ${token.accent};
-      color: #fff;
-      border: none;
-      border-radius: 8px;
+      background: var(--accent);
+      color: var(--on-accent);
+      border: 1.5px solid var(--accent);
+      border-radius: 6px;
       padding: 12px 28px;
       font-size: 15px;
       font-weight: 600;
+      font-family: inherit;
       cursor: pointer;
-      transition: transform 0.2s, box-shadow 0.2s;
       text-decoration: none;
       display: inline-block;
     }
-    .btn-primary:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(124,111,255,0.35); }
+    .btn-primary:disabled { cursor: not-allowed; }
 
     .btn-outline {
       background: transparent;
-      color: ${token.accent};
-      border: 1.5px solid ${token.accent};
-      border-radius: 8px;
+      color: var(--accent);
+      border: 1.5px solid var(--accent);
+      border-radius: 6px;
       padding: 11px 26px;
       font-size: 15px;
       font-weight: 600;
+      font-family: inherit;
       cursor: pointer;
-      transition: all 0.2s;
       text-decoration: none;
       display: inline-block;
     }
-    .btn-outline:hover { background: rgba(124,111,255,0.1); transform:translateY(-2px); }
 
-    .card-3d {
-      transition: transform 0.4s ease, box-shadow 0.4s ease;
-      transform-style: preserve-3d;
-    }
-    .card-3d:hover {
-      transform: perspective(800px) rotateY(-4deg) rotateX(3deg) translateY(-6px);
-      box-shadow: 8px 16px 40px rgba(0,0,0,0.5), 0 0 0 1px rgba(124,111,255,0.2);
-    }
+    .card { transition: border-color 0.2s; }
+    .card:hover { border-color: var(--accent) !important; }
 
     .skill-bar-fill {
       height: 100%;
-      border-radius: 4px;
-      background: linear-gradient(90deg, ${token.accent}, ${token.accentAlt});
-      transition: width 1.2s cubic-bezier(0.4,0,0.2,1);
+      border-radius: 3px;
+      background: var(--accent);
+      transition: width 1s ease;
     }
 
     .tag {
-      background: rgba(124,111,255,0.12);
-      color: ${token.accentAlt};
-      border: 1px solid rgba(124,111,255,0.2);
-      border-radius: 20px;
-      padding: 3px 12px;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 3px 10px;
       font-size: 12px;
-      font-family: ${token.fontMono};
-    }
-
-    .section-label {
-      font-size: 12px;
-      font-family: ${token.fontMono};
-      color: ${token.accent};
-      letter-spacing: 2px;
-      text-transform: uppercase;
-    }
-
-    .timeline-dot {
-      width:14px; height:14px;
-      border-radius:50%;
-      background: ${token.accent};
-      border: 3px solid ${token.bg};
-      animation: pulse 2s infinite;
-      flex-shrink:0;
+      font-family: ${fontMono};
     }
 
     .input-field {
-      background: ${token.card};
-      border: 1.5px solid ${token.border};
-      border-radius: 8px;
-      color: ${token.text};
+      background: var(--bg);
+      border: 1.5px solid var(--border);
+      border-radius: 6px;
+      color: var(--text);
       padding: 12px 16px;
       font-size: 15px;
-      font-family: ${token.fontSans};
+      font-family: ${fontSans};
       width: 100%;
-      outline: none;
-      transition: border-color 0.2s;
     }
-    .input-field:focus { border-color: ${token.accent}; }
-
-    .floating-shape {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(80px);
-      opacity: 0.12;
-      pointer-events: none;
-    }
+    .input-field:focus { border-color: var(--accent); }
 
     ::-webkit-scrollbar { width:6px; }
-    ::-webkit-scrollbar-track { background: ${token.bg}; }
-    ::-webkit-scrollbar-thumb { background: ${token.accent}; border-radius:3px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--accent); border-radius:3px; }
 
-    /* ──── MOBILE RESPONSIVENESS ──── */
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .fade-up, .skill-bar-fill { animation: none; transition: none; }
+    }
+
+    /* ──── MOBILE ──── */
     @media (max-width: 768px) {
-      * { padding: 0; margin: 0; }
-      
-      nav { padding: 0 3vw; }
-      nav span { font-size: 16px; }
-      
-      .nav-link { 
-        font-size: 12px; 
-        display: none;
-      }
-      
-      .nav-link:first-child { display: inline; }
-      
-      h1 { 
-        font-size: clamp(28px, 6vw, 48px) !important;
-        line-height: 1.2;
-      }
-      
-      h2 { font-size: clamp(16px, 3vw, 24px) !important; }
-      
-      .btn-primary, .btn-outline { 
-        padding: 10px 20px;
-        font-size: 14px;
-      }
-      
-      section { padding: 60px 4vw !important; }
-      
-      #about > div { 
-        grid-template-columns: 1fr !important;
-        gap: 40px !important;
-      }
-      
-      #skills > div > div { 
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)) !important;
-        gap: 16px !important;
-      }
-      
-      #projects > div > div { 
-        grid-template-columns: 1fr !important;
-        gap: 16px !important;
-      }
-      
-      .card-3d { 
-        transform: none !important;
-        padding: 16px 16px !important;
-      }
-      
-      .card-3d:hover { 
-        transform: translateY(-4px) !important;
-        box-shadow: 4px 8px 20px rgba(0,0,0,0.3) !important;
-      }
-      
-      h3 { font-size: 18px !important; }
-      p { font-size: 14px !important; }
-      
-      #contact > div { max-width: 100% !important; }
-      
-      .input-field { 
-        padding: 10px 12px;
-        font-size: 14px;
-      }
-      
-      footer { font-size: 12px; }
-      
+      nav { padding: 0 4vw !important; }
+      .nav-link { display: none; }
+
+      h1 { font-size: clamp(32px, 9vw, 48px) !important; line-height: 1.15 !important; }
+
+      section { padding: 64px 5vw !important; }
+
+      #about > div { grid-template-columns: 1fr !important; gap: 40px !important; }
+      #skills > div > div { grid-template-columns: 1fr !important; gap: 16px !important; }
+      #projects > div > div { grid-template-columns: 1fr !important; gap: 16px !important; }
+
+      .card { padding: 20px !important; }
+
+      .input-field { padding: 10px 12px; font-size: 14px; }
+      form { padding: 24px 20px !important; }
+
       button[aria-label="Scroll to top"] {
         bottom: 20px !important;
         right: 20px !important;
-        width: 45px !important;
-        height: 45px !important;
-        font-size: 18px !important;
       }
     }
-    
+
     @media (max-width: 480px) {
-      nav { padding: 0 2vw; height: 56px; }
-      
-      section { padding: 40px 3vw !important; }
-      
-      h1 { font-size: clamp(24px, 5vw, 40px) !important; }
-      h2 { font-size: clamp(14px, 2.5vw, 20px) !important; }
-      
-      .btn-primary, .btn-outline { 
-        padding: 8px 16px;
-        font-size: 13px;
-      }
-      
-      .tag { 
-        padding: 2px 8px;
-        font-size: 10px;
-      }
-      
-      .skill-bar-fill { height: 4px; }
-      
-      .timeline-dot { 
-        width: 12px !important;
-        height: 12px !important;
-      }
-      
-      button[aria-label="Scroll to top"] {
-        bottom: 16px !important;
-        right: 16px !important;
-        width: 40px !important;
-        height: 40px !important;
-      }
+      nav { height: 56px !important; }
+      section { padding: 48px 5vw !important; }
+      .btn-primary, .btn-outline { padding: 9px 18px; font-size: 14px; }
+      .tag { padding: 2px 8px; font-size: 11px; }
     }
   `;
   document.head.appendChild(style);
 };
 
-// ── Intersection Observer hook for scroll-triggered animations ──
+// ── Hooks ──
 function useInView(ref, threshold = 0.15) {
   const [visible, setVisible] = useState(false);
   useEffect(() => {
@@ -401,7 +283,6 @@ function useInView(ref, threshold = 0.15) {
   return visible;
 }
 
-// ── Typewriter effect hook ──
 function useTypewriter(words, speed = 120, pause = 1800) {
   const [display, setDisplay] = useState("");
   const [idx, setIdx] = useState(0);
@@ -426,10 +307,11 @@ function useTypewriter(words, speed = 120, pause = 1800) {
 //  SECTION COMPONENTS
 // ══════════════════════════════════════════════
 
+const sectionTitle = { fontSize:"clamp(28px,4vw,40px)", fontWeight:700, marginBottom:48 };
+
 // ── Nav ──
-function Nav({ active, theme, toggleTheme, currentToken }) {
+function Nav({ theme, toggleTheme, currentToken }) {
   const [scrolled, setScrolled] = useState(false);
-  // const [activeSection, setActiveSection] = useState("hero");
 
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 40);
@@ -438,176 +320,132 @@ function Nav({ active, theme, toggleTheme, currentToken }) {
   }, []);
 
   const links = ["About", "Skills", "Projects", "Experience", "Contact"];
-  
+
   return (
-    <nav 
+    <nav
       style={{
         position:"fixed", top:0, left:0, right:0, zIndex:100,
-        background: scrolled ? `rgba(${theme === "dark" ? "10,10,15" : "248,248,251"},0.85)` : "transparent",
-        backdropFilter: scrolled ? "blur(16px)" : "none",
-        borderBottom: scrolled ? `1px solid ${currentToken.border}` : "none",
-        transition: "all 0.3s",
+        background: scrolled ? currentToken.bg : "transparent",
+        borderBottom: scrolled ? `1px solid ${currentToken.border}` : "1px solid transparent",
+        transition: "background 0.2s",
         padding:"0 5vw",
         display:"flex", alignItems:"center", justifyContent:"space-between",
         height:64,
       }}
       aria-label="Main navigation"
-      role="navigation"
     >
-      {/* Mayur's Logo */}
-      <a 
-        href="#hero" 
-        style={{ fontWeight:700, fontSize:20, color:currentToken.accent, fontFamily:currentToken.fontMono, textDecoration: "none" }}
+      <a
+        href="#hero"
+        style={{ fontWeight:600, fontSize:18, color:currentToken.accent, fontFamily:currentToken.fontMono, textDecoration:"none" }}
         aria-label="Mayur's Portfolio - Home"
       >
-        {"<MRB />"}
+        MRB
       </a>
-      
-      <div style={{ display:"flex", gap:32, alignItems:"center" }}>
-{links.map(l => (
-  <a 
-    key={l} 
-    href={`#${l.toLowerCase()}`} 
-    className="nav-link"
-    aria-label={`Navigate to ${l} section`}
-  >
-    {l}
-  </a>
-))}
-        
-        {/* Theme Toggle Button */}
+
+      <div style={{ display:"flex", gap:28, alignItems:"center" }}>
+        {links.map(l => (
+          <a
+            key={l}
+            href={`#${l.toLowerCase()}`}
+            className="nav-link"
+            aria-label={`Navigate to ${l} section`}
+          >
+            {l}
+          </a>
+        ))}
+
         <button
           onClick={toggleTheme}
           style={{
-            background: currentToken.card,
+            background: "transparent",
             border: `1.5px solid ${currentToken.border}`,
-            borderRadius: "8px",
-            padding: "8px 14px",
+            borderRadius: 6,
+            padding: "7px 14px",
             cursor: "pointer",
-            fontSize: "16px",
-            transition: "all 0.2s",
+            fontSize: 13,
+            fontFamily: "inherit",
             color: currentToken.text,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
           }}
-          onMouseEnter={e => e.target.style.background = currentToken.accent + "20"}
-          onMouseLeave={e => e.target.style.background = currentToken.card}
           aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
           title={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
         >
-          {theme === "dark" ? "☀️" : "🌙"}
+          {theme === "dark" ? "Light" : "Dark"}
         </button>
-<a
-  href="/MayurResume.pdf"
-  target="_blank"
-  rel="noopener noreferrer"
-  className="btn-outline"
-  style={{ padding: "8px 18px", fontSize: 13 }}
-  aria-label="Download Resume (PDF)"
->
-  Resume ↗
-</a>
+
+        <a
+          href="/MayurResume.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="btn-outline"
+          style={{ padding: "7px 16px", fontSize: 13 }}
+          aria-label="Download Resume (PDF)"
+        >
+          Resume
+        </a>
       </div>
     </nav>
   );
 }
 
-// ── 3D Floating Orb (hero decoration) ──
-// function Orb({ size, color, top, left, delay = 0 }) {
-//   return (
-//     <div className="floating-shape" style={{
-//       width:size, height:size, background:color,
-//       top, left,
-//       animation:`float ${4 + delay}s ease-in-out infinite`,
-//       animationDelay:`${delay}s`,
-//     }} />
-//   );
-// }
-
-// ── Hero Section ──
+// ── Hero ──
 function Hero({ currentToken }) {
   const token = currentToken;
   const rotatingWords = ["Software Developer", "AI Enthusiast", "Data Science Learner", "Problem Solver", "Full-Stack Developer"];
   const typed = useTypewriter(rotatingWords);
 
   return (
-    <section 
-      id="hero" 
+    <section
+      id="hero"
       style={{
         minHeight:"100vh", display:"flex", alignItems:"center", justifyContent:"center",
-        position:"relative", overflow:"hidden", padding:"0 5vw",
+        padding:"0 5vw",
       }}
       aria-label="Hero section"
     >
-      {/* ... orbs and grid ... */}
-      
-      <div style={{ position:"relative", zIndex:1, maxWidth:750, textAlign:"center" }}>
-        <p className="section-label fade-up" style={{ marginBottom:16 }} aria-hidden="false">
-          Hello, world. I'm
+      <div style={{ maxWidth:750, textAlign:"center" }}>
+        <p className="fade-up" style={{ marginBottom:16, color:token.muted, fontSize:16 }}>
+          Hi, I'm
         </p>
+
         <h1
-  className="fade-up"
-  style={{
-    fontSize: "clamp(48px, 8vw, 88px)",
-    fontWeight: 800,
-    marginBottom: 12,
-    lineHeight: 1.05
-  }}
-  aria-label={DATA.name}
->
-  {DATA.name}
-</h1>
+          className="fade-up"
+          style={{ fontSize:"clamp(44px, 8vw, 84px)", fontWeight:700, marginBottom:16, lineHeight:1.05 }}
+          aria-label={DATA.name}
+        >
+          {DATA.name}
+        </h1>
 
-<h2
-  style={{
-    fontSize: "24px",
-    color: token.text,
-    marginBottom: 24
-  }}
-  aria-live="polite"
-  aria-atomic="true"
->
-  <span style={{ color: token.accent, fontFamily: token.fontMono }}>
-    {">"}
-  </span>{" "}
-  {typed}
-  <span style={{ animation: "blink 1s step-end infinite", color: token.accent }}>
-    |
-  </span>
-</h2>
+        <h2
+          style={{ fontSize:24, fontWeight:400, color:token.accent, marginBottom:24, minHeight:36 }}
+          aria-live="polite"
+          aria-atomic="true"
+        >
+          {typed}
+          <span style={{ animation:"blink 1s step-end infinite" }}>|</span>
+        </h2>
 
-<p
-  style={{
-    color: token.muted,
-    fontSize: "18px",
-    lineHeight: 1.8,
-    marginBottom: 32
-  }}
->
-  {DATA.tagline}
-</p>
+        <p style={{ color:token.muted, fontSize:18, lineHeight:1.7, marginBottom:32 }}>
+          {DATA.tagline}
+        </p>
 
         <div style={{ display:"flex", gap:16, justifyContent:"center", flexWrap:"wrap" }}>
-          <a href="#projects" className="btn-primary" aria-label="View My Work - Projects section">View My Work</a>
-          <a href="#contact" className="btn-outline" aria-label="Let's Talk - Contact section">Let's Talk</a>
+          <a href="#projects" className="btn-primary" aria-label="View My Work - Projects section">View my work</a>
+          <a href="#contact" className="btn-outline" aria-label="Let's Talk - Contact section">Get in touch</a>
         </div>
 
-        <div style={{ marginTop:48, display:"flex", gap:24, justifyContent:"center" }}>
+        <div style={{ marginTop:48, display:"flex", gap:24, justifyContent:"center", flexWrap:"wrap" }}>
           {[
-            { label:"GitHub", href:DATA.links.github },
+            { label:"GitHub",   href:DATA.links.github },
             { label:"LinkedIn", href:DATA.links.linkedin },
             { label:"CodeChef", href:DATA.links.codechef },
-            { label:"Email", href:`mailto:${DATA.links.email}` },
+            { label:"Email",    href:`mailto:${DATA.links.email}` },
           ].map(s => (
-            <a 
-              key={s.label} 
-              href={s.href} 
-              target="_blank" 
+            <a
+              key={s.label}
+              href={s.href}
+              target="_blank"
               rel="noreferrer"
-              style={{ color:token.muted, fontSize:13, textDecoration:"none", transition:"color 0.2s" }}
-              onMouseEnter={e => e.target.style.color = token.accent}
-              onMouseLeave={e => e.target.style.color = token.muted}
+              style={{ color:token.muted, fontSize:14, textDecoration:"underline", textUnderlineOffset:4 }}
               aria-label={`Visit ${s.label}`}
             >
               {s.label}
@@ -619,62 +457,39 @@ function Hero({ currentToken }) {
   );
 }
 
-// ── About Section ──
+// ── About ──
 function About({ currentToken }) {
   const token = currentToken;
-  const ref = useRef(); const visible = useInView(ref);
   return (
-    <section id="about" ref={ref} style={{ padding:"100px 5vw", maxWidth:1100, margin:"0 auto" }}>
-      <div style={{
-        display:"grid", gridTemplateColumns:"1fr 1fr", gap:64, alignItems:"center",
-        opacity: visible ? 1 : 0, transform: visible ? "none" : "translateY(40px)",
-        transition:"all 0.8s cubic-bezier(0.4,0,0.2,1)",
-      }}>
-        {/* Left: text */}
+    <section id="about" style={{ padding:"100px 5vw", maxWidth:1100, margin:"0 auto" }}>
+      <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:64, alignItems:"center" }}>
         <div>
-          <p className="section-label" style={{ marginBottom:12 }}>01. About Me</p>
-          <h2 style={{ fontSize:"clamp(28px,4vw,42px)", fontWeight:700, marginBottom:24 }}>
-            Who I Am
-          </h2>
-          <p style={{ color:token.muted, lineHeight:1.85, fontSize:16, marginBottom:20 }}>
+          <h2 style={{ ...sectionTitle, marginBottom:24 }}>About me</h2>
+          <p style={{ color:token.muted, lineHeight:1.85, fontSize:16, marginBottom:20, whiteSpace:"pre-line" }}>
             {DATA.about}
           </p>
-          {/* EDIT: Add more fun facts or highlights here */}
-          <div style={{ display:"flex", gap:32, marginTop:32 }}>
-            {[
-              { num:"4+", label:"Projects Built" },
-              { num:"1500+", label:"Problems Solved" },
-              { num:"3rd Year", label:"Artificial Intelligence & Data Science Student" },
-            ].map(s => (
+          <div style={{ display:"flex", gap:32, marginTop:32, flexWrap:"wrap" }}>
+            {DATA.stats.map(s => (
               <div key={s.label}>
-                <p style={{ fontSize:32, fontWeight:700, color:token.accent }}>{s.num}</p>
-                <p style={{ fontSize:13, color:token.muted }}>{s.label}</p>
+                <p style={{ fontSize:28, fontWeight:700, color:token.accent }}>{s.num}</p>
+                <p style={{ fontSize:13, color:token.muted, maxWidth:140 }}>{s.label}</p>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Right: profile photo with 3D tilt card */}
         <div style={{ display:"flex", justifyContent:"center" }}>
-          <div className="card-3d" style={{
-            width:280, height:280, borderRadius:20,
-            background:`linear-gradient(135deg, ${token.accent}33, ${token.card})`,
+          <div style={{
+            width:280, height:280, borderRadius:8,
+            background:token.card,
             border:`1px solid ${token.border}`,
-            display:"flex", alignItems:"center", justifyContent:"center",
-            overflow:"hidden", position:"relative",
+            overflow:"hidden",
           }}>
-            {/* EDIT: Replace the emoji below with an <img> tag once you have your photo:
-                <img src={DATA.profileImage} alt="Profile" style={{width:"100%",height:"100%",objectFit:"cover"}} />
-            */}
-            <img src={DATA.profileImage} alt="Profile" style={{width:"100%",height:"100%",objectFit:"cover"}} />
-
-            {/* decorative corner accent */}
-            <div style={{
-              position:"absolute", bottom:-2, right:-2,
-              width:80, height:80,
-              background:`linear-gradient(135deg, transparent 40%, ${token.accent}66 100%)`,
-              borderRadius:"0 0 20px 0",
-            }} />
+            <img
+              src={DATA.profileImage}
+              alt="Mayur Ravindra Badgujar"
+              style={{ width:"100%", height:"100%", objectFit:"cover", display:"block" }}
+            />
           </div>
         </div>
       </div>
@@ -682,36 +497,33 @@ function About({ currentToken }) {
   );
 }
 
-// ── Skills Section ──
+// ── Skills ──
 function Skills({ currentToken }) {
   const token = currentToken;
-  const ref = useRef(); const visible = useInView(ref);
+  const ref = useRef();
+  const visible = useInView(ref);
   return (
-    <section id="skills" ref={ref} style={{
-      padding:"100px 5vw", background:token.surface,
-    }}>
+    <section id="skills" ref={ref} style={{ padding:"100px 5vw", background:token.surface }}>
       <div style={{ maxWidth:1100, margin:"0 auto" }}>
-        <p className="section-label" style={{ marginBottom:12 }}>02. Skills</p>
-        <h2 style={{ fontSize:"clamp(28px,4vw,42px)", fontWeight:700, marginBottom:56 }}>
-          What I Work With
-        </h2>
+        <h2 style={sectionTitle}>Skills</h2>
         <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fit,minmax(280px,1fr))", gap:24 }}>
-          {DATA.skills.map((sk, i) => (
-            <div key={sk.name} className="card-3d" style={{
+          {DATA.skills.map(sk => (
+            <div key={sk.name} className="card" style={{
               background:token.card, border:`1px solid ${token.border}`,
-              borderRadius:16, padding:"24px 28px",
-              opacity: visible ? 1 : 0, transform: visible ? "none" : "translateY(30px)",
-              transition:`all 0.6s ease ${i * 0.08}s`,
+              borderRadius:8, padding:"24px 28px",
             }}>
               <div style={{ display:"flex", justifyContent:"space-between", marginBottom:12, alignItems:"center" }}>
-                <div style={{ display:"flex", alignItems:"center", gap:10 }}>
-                  <span style={{ fontSize:22 }}>{sk.icon}</span>
-                  <span style={{ fontWeight:600, fontSize:15 }}>{sk.name}</span>
-                </div>
+                <span style={{ fontWeight:600, fontSize:15 }}>{sk.name}</span>
                 <span style={{ fontFamily:token.fontMono, fontSize:13, color:token.accent }}>{sk.level}%</span>
               </div>
-              {/* Skill progress bar */}
-              <div style={{ background:"rgba(255,255,255,0.06)", borderRadius:4, height:6, overflow:"hidden" }}>
+              <div
+                style={{ background:token.border, borderRadius:3, height:6, overflow:"hidden" }}
+                role="progressbar"
+                aria-valuenow={sk.level}
+                aria-valuemin={0}
+                aria-valuemax={100}
+                aria-label={`${sk.name} proficiency`}
+              >
                 <div className="skill-bar-fill" style={{ width: visible ? `${sk.level}%` : "0%" }} />
               </div>
             </div>
@@ -722,131 +534,87 @@ function Skills({ currentToken }) {
   );
 }
 
-// ── Projects Section ──
+// ── Projects ──
 function Projects({ currentToken }) {
   const token = currentToken;
-  const ref = useRef(); const visible = useInView(ref);
   return (
-    <section id="projects" ref={ref} style={{ padding:"100px 5vw" }}>
+    <section id="projects" style={{ padding:"100px 5vw" }}>
       <div style={{ maxWidth:1100, margin:"0 auto" }}>
-        <p className="section-label" style={{ marginBottom:12 }}>03. Projects</p>
-        <h2 style={{ fontSize:"clamp(28px,4vw,42px)", fontWeight:700, marginBottom:56 }}>
-          Things I've Built
-        </h2>
+        <h2 style={sectionTitle}>Projects</h2>
         <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fit,minmax(320px,1fr))", gap:28 }}>
-          {DATA.projects.map((p, i) => (
-            <div key={p.title} className="card-3d" style={{
-              background:token.card,
-              border:`1px solid ${p.featured ? token.accent + "55" : token.border}`,
-              borderRadius:20, padding:"28px 28px 24px",
-              position:"relative", overflow:"hidden",
-              opacity: visible ? 1 : 0, transform: visible ? "none" : "translateY(40px)",
-              transition:`all 0.7s ease ${i * 0.12}s`,
-            }}>
-              {/* Featured badge */}
-              {p.featured && (
-                <span style={{
-                  position:"absolute", top:16, right:16,
-                  background:`${token.accent}22`, color:token.accent,
-                  border:`1px solid ${token.accent}44`,
-                  borderRadius:20, padding:"2px 10px", fontSize:11, fontFamily:token.fontMono,
-                }}>★ Featured</span>
-              )}
+          {DATA.projects.map(p => {
+            const deployed = p.live !== "Not Deployed";
+            return (
+              <div key={p.title} className="card" style={{
+                background:token.card,
+                border:`1px solid ${token.border}`,
+                borderRadius:8, padding:"28px",
+                display:"flex", flexDirection:"column",
+              }}>
+                <h3 style={{ fontSize:20, fontWeight:700, marginBottom:10 }}>{p.title}</h3>
+                <p style={{ color:token.muted, fontSize:14, lineHeight:1.7, marginBottom:20 }}>{p.description}</p>
 
-              {/* Top icon bar */}
-              <div style={{ fontSize:28, marginBottom:20 }}>
-                {/* EDIT: Add an icon or project screenshot here */}
-                📁
+                <div style={{ display:"flex", flexWrap:"wrap", gap:8, marginBottom:24 }}>
+                  {p.tags.map(t => <span key={t} className="tag">{t}</span>)}
+                </div>
+
+                <div style={{ display:"flex", gap:20, marginTop:"auto" }}>
+                  <a
+                    href={p.github}
+                    target="_blank"
+                    rel="noreferrer"
+                    style={{ color:token.text, fontSize:14, textDecoration:"underline", textUnderlineOffset:4 }}
+                  >
+                    GitHub
+                  </a>
+                  <a
+                    href={deployed ? p.live : "#projects"}
+                    onClick={(e) => {
+                      if (!deployed) {
+                        e.preventDefault();
+                        alert("This project is not deployed yet. The source code is on GitHub.");
+                      }
+                    }}
+                    target={deployed ? "_blank" : undefined}
+                    rel="noreferrer"
+                    style={{ color:token.accent, fontSize:14, textDecoration:"underline", textUnderlineOffset:4 }}
+                  >
+                    {deployed ? "Live demo" : "Not deployed"}
+                  </a>
+                </div>
               </div>
-
-              <h3 style={{ fontSize:20, fontWeight:700, marginBottom:10 }}>{p.title}</h3>
-              <p style={{ color:token.muted, fontSize:14, lineHeight:1.7, marginBottom:20 }}>{p.description}</p>
-
-              {/* Tech tags */}
-              <div style={{ display:"flex", flexWrap:"wrap", gap:8, marginBottom:24 }}>
-                {p.tags.map(t => <span key={t} className="tag">{t}</span>)}
-              </div>
-
-              {/* Links */}
-              <div style={{ display:"flex", gap:20 }}>
-                <a href={p.github} target="_blank" rel="noreferrer" style={{
-                  color:token.muted, fontSize:13, textDecoration:"none",
-                  display:"flex", alignItems:"center", gap:6,
-                  transition:"color 0.2s",
-                }}
-                  onMouseEnter={e => e.target.style.color = token.text}
-                  onMouseLeave={e => e.target.style.color = token.muted}>
-                  GitHub ↗
- </a>
-
-  <a
-    href={p.live !== "Not Deployed" ? p.live : "#"}
-    onClick={(e) => {
-      if (p.live === "Not Deployed") {
-        e.preventDefault();
-        alert("🚧 This project is currently not deployed.");
-      }
-    }}
-    target={p.live !== "Not Deployed" ? "_blank" : undefined}
-    rel="noreferrer"
-    style={{
-      color: token.accent,
-      fontSize: 13,
-      textDecoration: "none",
-      display: "flex",
-      alignItems: "center",
-      gap: 6,
-    }}
-  >
-    Live ↗
-  </a>
-</div>
-              <div style={{
-                position:"absolute", bottom:0, left:0, right:0, height:2,
-                background: p.featured
-                  ? `linear-gradient(90deg, ${token.accent}, ${token.accentAlt})`
-                  : "transparent",
-              }} />
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>
   );
 }
 
-// ── Experience / Timeline Section ──
+// ── Experience ──
 function Experience({ currentToken }) {
   const token = currentToken;
-  const ref = useRef(); const visible = useInView(ref);
   return (
-    <section id="experience" ref={ref} style={{ padding:"100px 5vw", background:token.surface }}>
+    <section id="experience" style={{ padding:"100px 5vw", background:token.surface }}>
       <div style={{ maxWidth:800, margin:"0 auto" }}>
-        <p className="section-label" style={{ marginBottom:12 }}>04. Experience</p>
-        <h2 style={{ fontSize:"clamp(28px,4vw,42px)", fontWeight:700, marginBottom:56 }}>
-          Where I've Worked
-        </h2>
-        {/* Timeline */}
+        <h2 style={sectionTitle}>Experience</h2>
         <div style={{ position:"relative" }}>
-          {/* Vertical line */}
           <div style={{
             position:"absolute", left:6, top:0, bottom:0, width:2,
-            background:`linear-gradient(180deg, ${token.accent}, transparent)`,
+            background:token.border,
           }} />
 
-          {DATA.experience.map((exp, i) => (
-            <div key={exp.role} style={{
-              display:"flex", gap:28, marginBottom:48,
-              paddingLeft:6,
-              opacity: visible ? 1 : 0, transform: visible ? "none" : "translateX(-30px)",
-              transition:`all 0.6s ease ${i * 0.15}s`,
-            }}>
-              <div style={{ paddingTop:4 }}>
-                <div className="timeline-dot" />
+          {DATA.experience.map(exp => (
+            <div key={exp.role} style={{ display:"flex", gap:28, marginBottom:40 }}>
+              <div style={{ paddingTop:22, flexShrink:0 }}>
+                <div style={{
+                  width:14, height:14, borderRadius:"50%",
+                  background:token.accent, border:`3px solid ${token.surface}`,
+                }} />
               </div>
               <div style={{
                 background:token.card, border:`1px solid ${token.border}`,
-                borderRadius:16, padding:"20px 24px", flex:1,
+                borderRadius:8, padding:"20px 24px", flex:1,
               }}>
                 <div style={{ display:"flex", justifyContent:"space-between", flexWrap:"wrap", gap:8, marginBottom:6 }}>
                   <div>
@@ -865,41 +633,29 @@ function Experience({ currentToken }) {
   );
 }
 
-// ── Contact Section ──
+// ── Contact ──
 function Contact({ currentToken }) {
   const token = currentToken;
-  const ref = useRef(); 
-  const visible = useInView(ref);
   const [form, setForm] = useState({ name:"", email:"", message:"" });
   const [sent, setSent] = useState(false);
   const [formErrors, setFormErrors] = useState({});
   const [loading, setLoading] = useState(false);
 
-  // VALIDATION FUNCTION
   const validateForm = () => {
     const errors = {};
-
-    if (!form.name.trim()) {
-      errors.name = "Name is required";
-    }
-
+    if (!form.name.trim()) errors.name = "Enter your name.";
     if (!form.email.trim()) {
-      errors.email = "Email is required";
+      errors.email = "Enter your email address.";
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
-      errors.email = "Please enter a valid email";
+      errors.email = "Enter a valid email address, like name@example.com.";
     }
-
-    if (!form.message.trim()) {
-      errors.message = "Message is required";
-    }
-
+    if (!form.message.trim()) errors.message = "Enter a message.";
     return errors;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    // VALIDATE FIRST
+
     const errors = validateForm();
     if (Object.keys(errors).length > 0) {
       setFormErrors(errors);
@@ -907,13 +663,11 @@ function Contact({ currentToken }) {
     }
 
     setFormErrors({});
-    setLoading(true); 
+    setLoading(true);
     try {
       const response = await fetch("https://formspree.io/f/maqzzgge", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           name: form.name,
           email: form.email,
@@ -923,63 +677,68 @@ function Contact({ currentToken }) {
       if (response.ok) {
         setSent(true);
         setForm({ name: "", email: "", message: "" });
-        setTimeout(() => setSent(false), 3000);
+        setTimeout(() => setSent(false), 4000);
       } else {
-        alert("Error sending message. Please try again.");
+        alert("Your message was not sent. Please try again.");
       }
     } catch (error) {
       console.error("Error:", error);
-      alert("Error sending message. Please check your internet connection.");
+      alert("Your message was not sent. Check your internet connection and try again.");
     } finally {
-      setLoading(false); 
+      setLoading(false);
     }
   };
 
+  const errorBox = {
+    border: "1px solid #ef4444",
+    borderRadius: 6,
+    padding: "8px 12px",
+    marginTop: 6,
+    color: "#ef4444",
+    fontSize: 13,
+    fontWeight: 500,
+  };
+
   return (
-    <section 
-      id="contact" 
-      ref={ref} 
+    <section
+      id="contact"
       style={{ padding:"100px 5vw" }}
       aria-label="Contact section"
     >
-      <div style={{
-        maxWidth:620, margin:"0 auto", textAlign:"center",
-        opacity: visible ? 1 : 0, transform: visible ? "none" : "translateY(40px)",
-        transition:"all 0.8s ease",
-      }}>
-        <p className="section-label" style={{ marginBottom:12 }}>05. Contact</p>
-        <h2 style={{ fontSize:"clamp(28px,4vw,48px)", fontWeight:700, marginBottom:20 }}>
-          {DATA.contactHeading}
-        </h2>
+      <div style={{ maxWidth:620, margin:"0 auto", textAlign:"center" }}>
+        <h2 style={{ ...sectionTitle, marginBottom:20 }}>{DATA.contactHeading}</h2>
         <p style={{ color:token.muted, fontSize:16, lineHeight:1.8, marginBottom:48 }}>
           {DATA.contactText}
         </p>
 
         {sent ? (
-          <div style={{
-            background:`${token.accent}15`, border:`1px solid ${token.accent}44`,
-            borderRadius:16, padding:32, color:token.accent, fontSize:18, fontWeight:600,
-          }}>
-            ✓ Message sent! I'll get back to you soon.
+          <div
+            role="status"
+            style={{
+              border:`1px solid ${token.accent}`,
+              borderRadius:8, padding:32, color:token.accent, fontSize:18, fontWeight:600,
+            }}
+          >
+            Message sent. I'll get back to you soon.
           </div>
         ) : (
-          <form 
+          <form
             onSubmit={handleSubmit}
+            noValidate
             aria-label="Contact form"
             style={{
               background:token.card, border:`1px solid ${token.border}`,
-              borderRadius:20, padding:"40px 36px", textAlign:"left",
+              borderRadius:8, padding:"40px 36px", textAlign:"left",
             }}
           >
-            {/* Name and Email Fields */}
             {[
-              { key:"name",    label:"Name",    type:"text",     placeholder:"Your Name" },
-              { key:"email",   label:"Email",   type:"email",    placeholder:"your.email@example.com" },
+              { key:"name",  label:"Name",  type:"text",  placeholder:"Your name" },
+              { key:"email", label:"Email", type:"email", placeholder:"you@example.com" },
             ].map(f => (
               <div key={f.key} style={{ marginBottom:20 }}>
-                <label 
+                <label
                   htmlFor={f.key}
-                  style={{ display:"block", color:token.muted, fontSize:13, marginBottom:6 }}
+                  style={{ display:"block", color:token.muted, fontSize:14, marginBottom:6 }}
                 >
                   {f.label}
                 </label>
@@ -991,131 +750,92 @@ function Contact({ currentToken }) {
                   value={form[f.key]}
                   onChange={e => {
                     setForm({ ...form, [f.key]: e.target.value });
-                    if (formErrors[f.key]) {
-                      setFormErrors({ ...formErrors, [f.key]: "" });
-                    }
+                    if (formErrors[f.key]) setFormErrors({ ...formErrors, [f.key]: "" });
                   }}
                   aria-invalid={!!formErrors[f.key]}
                   aria-describedby={formErrors[f.key] ? `${f.key}-error` : undefined}
-                  style={{
-                    borderColor: formErrors[f.key] ? "#ef4444" : undefined,
-                  }}
+                  style={{ borderColor: formErrors[f.key] ? "#ef4444" : undefined }}
                 />
                 {formErrors[f.key] && (
-                  <div 
-                    id={`${f.key}-error`}
-                    role="alert"
-                    style={{
-                      background: "rgba(239, 68, 68, 0.1)",
-                      border: "1px solid #ef4444",
-                      borderRadius: "6px",
-                      padding: "8px 12px",
-                      marginTop: 6,
-                      color: "#ef4444",
-                      fontSize: 12,
-                      fontWeight: 500,
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 6,
-                    }}
-                  >
-                    <span>⚠️</span>
+                  <div id={`${f.key}-error`} role="alert" style={errorBox}>
                     {formErrors[f.key]}
                   </div>
                 )}
               </div>
             ))}
-            
-            {/* Message Textarea */}
+
             <div style={{ marginBottom:28 }}>
-              <label 
+              <label
                 htmlFor="message"
-                style={{ display:"block", color:token.muted, fontSize:13, marginBottom:6 }}
+                style={{ display:"block", color:token.muted, fontSize:14, marginBottom:6 }}
               >
                 Message
               </label>
               <textarea
                 id="message"
                 rows={5}
-                placeholder="Let me know about your project or opportunity..."
+                placeholder="Tell me about your project or opportunity"
                 className="input-field"
                 value={form.message}
                 onChange={e => {
                   setForm({ ...form, message: e.target.value });
-                  if (formErrors.message) {
-                    setFormErrors({ ...formErrors, message: "" });
-                  }
+                  if (formErrors.message) setFormErrors({ ...formErrors, message: "" });
                 }}
                 aria-invalid={!!formErrors.message}
                 aria-describedby={formErrors.message ? "message-error" : undefined}
-                style={{ 
+                style={{
                   resize:"vertical",
                   borderColor: formErrors.message ? "#ef4444" : undefined,
                 }}
               />
               {formErrors.message && (
-                <div 
-                  id="message-error"
-                  role="alert"
-                  style={{
-                    background: "rgba(239, 68, 68, 0.1)",
-                    border: "1px solid #ef4444",
-                    borderRadius: "6px",
-                    padding: "8px 12px",
-                    marginTop: 6,
-                    color: "#ef4444",
-                    fontSize: 12,
-                    fontWeight: 500,
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 6,
-                  }}
-                >
-                  <span>⚠️</span>
+                <div id="message-error" role="alert" style={errorBox}>
                   {formErrors.message}
                 </div>
               )}
             </div>
-            
-            {/* Submit Button */}
-            <button 
+
+            <button
               type="submit"
-              className="btn-primary" 
+              className="btn-primary"
               disabled={loading}
               aria-busy={loading}
-              aria-label={loading ? "Sending message" : "Send message"}
               style={{ width:"100%", fontSize:16, opacity: loading ? 0.6 : 1 }}
             >
               {loading ? (
                 <>
-                  <span 
-                    style={{ 
+                  <span
+                    style={{
                       display: "inline-block",
-                      width: "16px",
-                      height: "16px",
-                      border: "2px solid rgba(255,255,255,0.3)",
-                      borderTopColor: "#fff",
+                      width: 16,
+                      height: 16,
+                      border: "2px solid rgba(128,128,128,0.4)",
+                      borderTopColor: "currentColor",
                       borderRadius: "50%",
                       animation: "spin 0.6s linear infinite",
-                      marginRight: "8px"
+                      marginRight: 8,
+                      verticalAlign: "middle",
                     }}
                     aria-hidden="true"
                   />
-                  Sending...
+                  Sending
                 </>
               ) : (
-                "Send Message →"
+                "Send message"
               )}
             </button>
+
+            <p style={{ marginTop:14, color:token.muted, fontSize:13, textAlign:"center" }}>
+              Your details are only used to reply to you.
+            </p>
           </form>
         )}
 
-        {/* Direct email link */}
         <p style={{ marginTop:32, color:token.muted, fontSize:14 }}>
           Or email me directly at{" "}
-          <a 
+          <a
             href={`mailto:${DATA.links.email}`}
-            style={{ color:token.accent, textDecoration:"none" }}
+            style={{ color:token.accent, textDecoration:"underline", textUnderlineOffset:4 }}
           >
             {DATA.links.email}
           </a>
@@ -1124,56 +844,44 @@ function Contact({ currentToken }) {
     </section>
   );
 }
+
 // ── Footer ──
 function Footer({ currentToken }) {
   const token = currentToken;
   const [showScrollTop, setShowScrollTop] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setShowScrollTop(window.scrollY > 300);
-    };
+    const handleScroll = () => setShowScrollTop(window.scrollY > 300);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
+  const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
   return (
     <footer style={{
       padding:"32px 5vw", borderTop:`1px solid ${token.border}`,
       textAlign:"center", color:token.muted, fontSize:13,
-      position: "relative",
     }}>
-      <p>Designed &amp; Built by <span style={{ color:token.accent }}>Mayur Ravindra Badgujar</span> · {new Date().getFullYear()}</p>
-      
-      {/* Scroll to Top Button */}
+      <p>Designed and built by <span style={{ color:token.accent }}>Mayur Ravindra Badgujar</span>, {new Date().getFullYear()}</p>
+
       {showScrollTop && (
         <button
           onClick={scrollToTop}
           style={{
             position: "fixed",
-            bottom: "30px",
-            right: "30px",
+            bottom: 30,
+            right: 30,
             background: token.accent,
-            color: "#fff",
+            color: token.onAccent,
             border: "none",
-            borderRadius: "50%",
-            width: "50px",
-            height: "50px",
+            borderRadius: 6,
+            width: 44,
+            height: 44,
             cursor: "pointer",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            fontSize: "20px",
+            fontSize: 20,
             zIndex: 99,
-            transition: "all 0.3s",
-            boxShadow: `0 4px 12px ${token.accent}44`,
           }}
-          onMouseEnter={e => e.target.style.transform = "translateY(-5px)"}
-          onMouseLeave={e => e.target.style.transform = "translateY(0)"}
           aria-label="Scroll to top"
           title="Back to top"
         >
@@ -1189,10 +897,8 @@ function Footer({ currentToken }) {
 // ══════════════════════════════════════════════
 export default function Portfolio() {
   const [theme, setTheme] = useState(() => {
-    // Get from localStorage or default to 'dark'
-    return typeof window !== "undefined" 
-      ? localStorage.getItem("theme") || "dark" 
-      : "dark";
+    const saved = typeof window !== "undefined" ? localStorage.getItem("theme") : null;
+    return saved === "light" || saved === "dark" ? saved : "dark";
   });
 
   const currentToken = themes[theme];
@@ -1202,16 +908,14 @@ export default function Portfolio() {
   }, []);
 
   useEffect(() => {
-    // Save theme to localStorage
+    applyTheme(themes[theme]);
     localStorage.setItem("theme", theme);
   }, [theme]);
 
-  const toggleTheme = () => {
-    setTheme(prev => prev === "dark" ? "light" : "dark");
-  };
+  const toggleTheme = () => setTheme(prev => (prev === "dark" ? "light" : "dark"));
 
   return (
-    <div style={{ background:currentToken.bg, color:currentToken.text, fontFamily:currentToken.fontSans, transition: "background 0.3s, color 0.3s" }}>
+    <div style={{ background:currentToken.bg, color:currentToken.text, fontFamily:currentToken.fontSans }}>
       <Nav theme={theme} toggleTheme={toggleTheme} currentToken={currentToken} />
       <Hero currentToken={currentToken} />
       <About currentToken={currentToken} />
